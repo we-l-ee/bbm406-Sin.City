@@ -23,7 +23,7 @@ In the past decade machine learning solved many every day problems in the societ
 * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5402948/
 * https://www.researchgate.net/publication/283768586_Proper_nouns_recognition_in_Arabic_crime_text_using_machine_learning_approach
 
-# Datasset Links
+# Dataset Links
 * https://blog.dataiku.com/predicting-london-crime-rates-using-machine-learning
 * https://data.cityofnewyork.us/City-Government/Demographic-Statistics-By-Zip-Code/kku6-nxdu
 * https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i/data
