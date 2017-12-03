@@ -22,3 +22,23 @@ In the past decade machine learning solved many every day problems in the societ
 * https://blog.dataiku.com/predicting-london-crime-rates-using-machine-learning
 * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5402948/
 * https://www.researchgate.net/publication/283768586_Proper_nouns_recognition_in_Arabic_crime_text_using_machine_learning_approach
+
+# Datasset Links
+* https://blog.dataiku.com/predicting-london-crime-rates-using-machine-learning
+* https://data.cityofnewyork.us/City-Government/Demographic-Statistics-By-Zip-Code/kku6-nxdu
+* https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i/data
+* https://data.cityofnewyork.us/City-Government/New-York-City-Population-By-Neighborhood-Tabulatio/swpk-hqdp/data
+* https://www1.nyc.gov/site/nypd/stats/reports-analysis/stopfrisk.page
+* https://catalog.data.gov/dataset/nypd-complaint-data-historic
+* https://council.nyc.gov/budget/wp-content/uploads/sites/54/2016/06/nypd.pdf
+* https://data.nysed.gov/
+* http://schools.nyc.gov/Accountability/data/TestResults/ELAandMathTestResults
+* http://www.city-data.com/city/New-York.html
+* https://data.cityofnewyork.us/City-Government/Demographic-Social-Economic-and-Housing-Profiles-b/kvuc-fg9b
+* http://www1.nyc.gov/nyc-resources/agencies.page
+* http://www.datahen.com/web-scraping-services-pricing/?utm_campaign=Social%20Media&utm_medium=social&utm_source=quora
+
+* http://www.dolphin.com/apk/com.wCityData.html
+* https://factfinder.census.gov/faces/nav/jsf/pages/index.xhtml
+* https://census.gov/
+* https://www.quandl.com/data/USCENSUS
