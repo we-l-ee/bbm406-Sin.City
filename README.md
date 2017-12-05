@@ -41,7 +41,7 @@ region which might be city, county or state.
 5. İç Anadolu
 	* https://www.youtube.com/watch?v=6g37P3aOMkA&list=RDQM049j_kqtnow 
 	* https://www.youtube.com/watch?v=0UyLho-VXx4&list=PL6J_woZ6ntHc0q2_MrTlzvdyQzyX2a7Yp
-6. Doğu Anadolu
+6. Doğu Anadolu - Kafkas
 	* https://www.youtube.com/watch?v=p_68Pnk1kKI&list=PLA3741D504BE94E02
 	* https://www.youtube.com/watch?v=N2a_kWyalac&list=PL7G00IBaD4iqkXVPMgpPy0eapH2yDjIO_
 	* https://www.youtube.com/watch?v=Np2QrvEIe6w&list=RDQMI7Fmbi3y8PA
@@ -90,6 +90,6 @@ region which might be city, county or state.
 * https://github.com/mlachmish/MusicGenreClassification
 
 # Machine Learning Libraries Options
-	* TensorFlow
-	* scikit-learn
-	* Theano or pylearn2 which is written on top of Theano
+* TensorFlow
+* scikit-learn
+* Theano or pylearn2 which is written on top of Theano
