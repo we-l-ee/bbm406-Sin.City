@@ -7,14 +7,15 @@ region which might be city, county or state.
 # Introduction 
 
 # Related Works
-* https://pdfs.semanticscholar.org/c11a/c956b26df3df4c2c6a4eda097b4e1cfbdb4f.pdf - automatic !
-* http://www.ifs.tuwien.ac.at/~andi/publications/pdf/lid_ismir05.pdf - automatic !
+* https://pdfs.semanticscholar.org/c11a/c956b26df3df4c2c6a4eda097b4e1cfbdb4f.pdf
+* http://www.ifs.tuwien.ac.at/~andi/publications/pdf/lid_ismir05.pdf
 * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4676707/ - automatic !
-* http://josh-jacobson.github.io/genre-classification/doc/paper.pdf - automatic !
+* http://josh-jacobson.github.io/genre-classification/doc/paper.pdf 
 * https://www.researchgate.net/publication/319326354_Music_Feature_Maps_with_Convolutional_Neural_Networks_for_Music_Genre_Classification - Convulutional Neural Network
 * http://www.terasoft.com.tw/conf/ismir2014/LBD%5CLBD17.pdf - CNN
 * http://cs231n.stanford.edu/reports/2017/pdfs/22.pdf - Deep Learning
 * http://www.inf.ufpr.br/lesoliveira/download/ASOC2017.pdf - CNN
+* http://www.iaeng.org/publication/IMECS2010/IMECS2010_pp546-550.pdf
 
 # Reference Link
 
