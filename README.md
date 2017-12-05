@@ -10,6 +10,12 @@ region which might be city, county or state.
 * https://pdfs.semanticscholar.org/c11a/c956b26df3df4c2c6a4eda097b4e1cfbdb4f.pdf - automatic !
 * http://www.ifs.tuwien.ac.at/~andi/publications/pdf/lid_ismir05.pdf - automatic !
 * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4676707/ - automatic !
+* http://josh-jacobson.github.io/genre-classification/doc/paper.pdf - automatic !
+* https://www.researchgate.net/publication/319326354_Music_Feature_Maps_with_Convolutional_Neural_Networks_for_Music_Genre_Classification - Convulutional Neural Network
+* http://www.terasoft.com.tw/conf/ismir2014/LBD%5CLBD17.pdf - CNN
+* http://cs231n.stanford.edu/reports/2017/pdfs/22.pdf - Deep Learning
+* http://www.inf.ufpr.br/lesoliveira/download/ASOC2017.pdf - CNN
+
 # Reference Link
 
 # Dataset Links
@@ -53,12 +59,17 @@ region which might be city, county or state.
 	* Yaafe: http://yaafe.sourceforge.net/
 	* Marsyas: http://marsyas.info/index.html
 	* librosa: https://librosa.github.io/
-* Useful Links
+* Useful Links For Libraries
 	* https://docs.python.org/2/library/wave.html
 	* http://rwx.io/blog/2016/04/08/bp-pyaudioanalysis/
 	* https://github.com/worldveil/dejavu
 	* https://stackoverflow.com/questions/20719558/feature-extraction-from-an-audio-file-using-python
 
+* Music Information Retrieval
+	* http://musicinformationretrieval.com/ - good to start for definitions
+	* https://www.researchgate.net/publication/221787719_Machine_Learning_Approaches_for_Music_Information_Retrieval
+	* http://www.ee.columbia.edu/~dpwe/pubs/MandelE08-MImusic.pdf
+	* http://musicweb.ucsd.edu/~sdubnov/Mu270d/DeepLearning/FeaturesAudioEck.pdf - Deep Belief Networks
 * FEATURES
 	* Mel-frequency cepstral coefficients (MFCC) - the coefficients that collectively make up the short-term power spectrum of a sound
 	* Mel-scaled power spectrogram - the Mel Scale is used to provide greater resolution for more informative (lower) frequencies
@@ -67,6 +78,17 @@ region which might be city, county or state.
 	* Tonnetz - estimates tonal centroids as coordinates in a six-dimensional interval space
 	* Centroid
 	* Features in the http://josh-jacobson.github.io/genre-classification/ might be useful
+	* Features in the http://www.ifs.tuwien.ac.at/~andi/publications/pdf/lid_ismir05.pdf different than the others
 * For Better Features
 	* http://deepsound.io/music_genre_recognition.html
 	* PCA, Dimension Reduction, Feature Selection, Discrimination, LDA
+	
+# Related Projects
+* https://github.com/meetshah1995/crnn-music-genre-classification 
+* https://github.com/jsalbert/Music-Genre-Classification-with-Deep-Learning
+* https://github.com/mlachmish/MusicGenreClassification
+
+# Machine Learning Libraries Options
+	* TensorFlow
+	* scikit-learn
+	* Theano or pylearn2 which is written on top of Theano
