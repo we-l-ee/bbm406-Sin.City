@@ -65,7 +65,6 @@ region which might be city, county or state.
 	* http://rwx.io/blog/2016/04/08/bp-pyaudioanalysis/
 	* https://github.com/worldveil/dejavu
 	* https://stackoverflow.com/questions/20719558/feature-extraction-from-an-audio-file-using-python
-
 * Music Information Retrieval
 	* http://musicinformationretrieval.com/ - good to start for definitions
 	* https://www.researchgate.net/publication/221787719_Machine_Learning_Approaches_for_Music_Information_Retrieval
@@ -80,6 +79,8 @@ region which might be city, county or state.
 	* Centroid
 	* Features in the http://josh-jacobson.github.io/genre-classification/ might be useful
 	* Features in the http://www.ifs.tuwien.ac.at/~andi/publications/pdf/lid_ismir05.pdf different than the others
+	* http://www.ifs.tuwien.ac.at/~schindler/lectures/IR_VU_SS2010-MIR_pt2-TL%20(Alex)%202013.pdf - useful
+	* 
 * For Better Features
 	* http://deepsound.io/music_genre_recognition.html
 	* PCA, Dimension Reduction, Feature Selection, Discrimination, LDA
