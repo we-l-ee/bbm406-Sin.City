@@ -4,6 +4,8 @@
 In most cultures we can define a generic type of songs that defines the culture. We can even pinpoint the differences between similar cultures but relatively in a different region which might be city, county or state. This is the point where idea came to classify folk songs in Turkey region by region. Turkey has 7 geographic regions which can be seen as cultural regions. Thus, those regions do not have completely different cultures,but differences are visible which one of them is the regional songs. For instance, tulum, kemençe(endemic musical instruments for Karadeniz) can be heard in Karadeniz songs which are distinguishable from other regions songs. However, some regions have same musical infrastructure which are rhythm, instruments, chords or notes patterns and vocal type which is hard to distinguish for a human being. This one is probably the hardest challange we will face. Hence, feauture extraction is the crucial point for this matter and there are certain features can be used for our classification problem and there are some must be tried before used. We will try to implement and analyze different models and different features for this classification problem.        
 
 # Introduction 
+In machine learning most important step is the feature extraction. Just by improving features will increase dramatically for contemporary machine learning models. MIR(Music Information Retrivial) is a huge field that has spotlight since Tzanetakis and Cook released a paper on Music Genre Classificaiton in 2002[1]. MIR includes Audio Feature Extraction, Signal Processing, Audio Analys etc. Audio feature extraction is what we are interested in MIR research field. 
+
 
 # Related Works
 * https://pdfs.semanticscholar.org/c11a/c956b26df3df4c2c6a4eda097b4e1cfbdb4f.pdf
@@ -17,6 +19,7 @@ In most cultures we can define a generic type of songs that defines the culture.
 * http://www.iaeng.org/publication/IMECS2010/IMECS2010_pp546-550.pdf
 
 # Reference Link
+1. [Music Genre Classification, Tzanetakis and Cook](http://dspace.library.uvic.ca:8080/bitstream/handle/1828/1344/tsap02gtzan.pdf?sequence=1)
 
 # Dataset Links
 1. Karadeniz 
