@@ -4,18 +4,25 @@
 In most cultures we can define a generic type of songs that defines the culture. We can even pinpoint the differences between similar cultures but relatively in a different region which might be city, county or state. This is the point where idea came to classify folk songs in Turkey region by region. Turkey has 7 geographic regions which can be seen as cultural regions. Thus, those regions do not have completely different cultures,but differences are visible which one of them is the regional songs. For instance, tulum, kemençe(endemic musical instruments for Karadeniz) can be heard in Karadeniz songs which are distinguishable from other regions songs. However, some regions have same musical infrastructure which are rhythm, instruments, chords or notes patterns and vocal type which is hard to distinguish for a human being. This one is probably the hardest challenge we will face. Hence, feature extraction is the crucial point for this matter and there are certain features can be used for our classification problem and there are some must be tried before used. We will try to implement and analyze different models and different features for this classification problem.
 
 ## Introduction 
-In machine learning most important step is the feature extraction. Just by improving features will increase dramatically for contemporary machine learning models. In the audio feature extraction, current state-of-art is being provided by MIR(Music Information Retrieval) research field. MIR is a huge field that has been under the spotlight since Tzanetakis and Cook released a paper on Music Genre Classification in 2002[1]. MIR includes audio feature extraction, signal processing, audio analyse etc. Audio feature extraction is what we are interested in MIR research field. We are planning mainly to use features: Chroma-gram, MFCC(Mel-frequency cepstral coefficients), Spectral centroid, Spectral r	roll-of, Zero-crossing rate *et al*. We will also use other features for reference points but these will be the main features. 
+In machine learning most important step is the feature extraction. Just by improving features will increase dramatically for contemporary machine learning models. In the audio feature extraction, current state-of-art is being provided by MIR(Music Information Retrieval) research field. MIR is a huge field that has been under the spotlight since Tzanetakis and Cook released a paper on Music Genre Classification in 2002[1]. MIR includes audio feature extraction, signal processing, audio analyse etc. Audio feature extraction is what we are interested in MIR research field. We are planning mainly to use features: Chroma-gram, MFCC(Mel-frequency cepstral coefficients), Spectral centroid, Spectral r	roll-of, Zero-crossing rate *et al*. We will also use other features for reference points but these will be the main features.
 Machine learning model selection for the job is not without importance. State-of-art models are plentiful, however they are mostly specific for a given problem. In order to find the best classification, we will use various models which will be CNN(Convolutional Neural Network), SVM(Support Vector Machine), K-NN(K Nearest Neighbor). These machine learning models will be implemented with various contemporary features discussed in MIR. Subsequently these will be analysed.   
-Analyzing will be last step in our paper. We will gather results after testing in a matrix as rows for machine learning models and columns for features. 
+Analyzing will be last step in our paper. We will gather results after the testing which in a matrix as rows for machine learning models and columns for features. Best model and features will be apparent after the testing is done. Confusion matrix will be constructed by using our best model and features.
 
 ## Related Works
 
 ## Methodology 
+### Data Set 
+We have gathered our data from youtube playlist. There are various regional playlist which we have found with quick search[2]. We obtained these in ogg format, smallest bitrate we can find in order to save space. JDownloader[3] used to download these playlist with ease. Each download placed in respective folder for label in their classification. In these playlist there might be noise such as given song might not be in that regional as suggested in the name of the playlist.
+
+
+
 
 ## Feature Works
 
 ## Reference Link
 1. [Music Genre Classification, Tzanetakis and Cook](http://dspace.library.uvic.ca:8080/bitstream/handle/1828/1344/tsap02gtzan.pdf?sequence=1)
+2. [Data Sets](https://we-l-ee.github.io/bbm406-Sin.City/#dataset-links)
+3. [JDownloader](http://jdownloader.org/)
 
 # Related Works
 * https://pdfs.semanticscholar.org/c11a/c956b26df3df4c2c6a4eda097b4e1cfbdb4f.pdf
