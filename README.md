@@ -15,7 +15,8 @@ For this purpose some researches have been done about features extraction such a
 
 However,most known study for folk song classification which is based on region has been done for China[3]. On paper in interest, 74 features have been extracted from audio files of the songs, and classified by an audio classifier on SVM which is one of our concern. Research shows usthat SVM without feature selection is a very effective classification method with the combination of 13-dimension MFCC and 10-dimension without feature selection[3]. It points us to post processing and segmentation plays key role in here. Other research is called "Regional Classification of Traditional Japanese Folk Songs" by Akihiro KAWASE, Akifumi TOKOSUMI has been made. That research use music corpora consisting of 202,246 tones from 1,794 song pieces from 45 prefectures in Japan which is big enough.
 
-
+In another research[8], presented a methodology to automatically extract musical patterns features from audio music using the CNN which is easy to use for feature extractors, it because need minimal prior knowledge to construct. Some other paper uses[9] various machine learning algorithms that are including k-nearest neighbor (kNN), k-means, multi-class SVM, and neural networks to classify the following four genres: classical, jazz, metal, and pop and only Mel Frequency Cepstral Coefficients (MFCC) is used to characterize data.
+Using CNN is become quite popular in other ML fields with each other. Qiuqiang Kong, et al[10] stated that many manual-selected features such as MFCC have been applied to music processing but they are not effective for music genre classification. In their work, it is presented an algorithm based on spectrogram and CNN and compared with MFCC, the spectrogram contains more details of music components such as pitch, flux, etc. 
 
 ## Methodology 
 ### Data Set 
@@ -36,10 +37,13 @@ Implementation of our classification will be our next step. Following our implem
 1. [Music Genre Classification, features seg. Tzanetakis and Cook](http://dspace.library.uvic.ca:8080/bitstream/handle/1828/1344/tsap02gtzan.pdf?sequence=1)
 2. [An evaluation of Convolutional Neural Networks for music classification using spectrograms, Yandre M.G. Costaa, Luiz S. Oliveira b, Carlos N. Silla Jr. c](http://www.inf.ufpr.br/lesoliveira/download/ASOC2017.pdf)
 3. [The Study of the Classification of Chinese Folk Songs by Regional Style, Yi Liu, JiePing Xu, Lei Wei, Yun Tian](http://ieeexplore.ieee.org/abstract/document/4338407/)
-4. [Design, analysis and experimental evaluation of block based transformation in MFCC computation for speaker recognition, Md.Sahidullah, Goutam Saha](http://www.sciencedirect.com/science/article/pii/S0167639311001622)
+4. [Mel Frequenct Cepstral Coefficients for Music Modelling, Beth Logan](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.11.9216&rep=rep1&type=pdf)
 5. [CLASSIFYING MUSIC AUDIO WITH TIMBRAL AND CHROMA FEATURES, Daniel P. W. Ellis](https://www.ee.columbia.edu/~dpwe/pubs/Ellis07-timbrechroma.pdf)
 6. [Improving Music Genre Classification by Short Time Feature Integration, Meng, Anders, Ahrendt, Peter,  Larsen, Jan](http://orbit.dtu.dk/en/publications/improving-music-genre-classification-by-short-time-feature-integration(551fef78-45e4-43bf-bae4-b2677b1f10fd).html)
 7. [Spectral centroid and timbre in complex, multiple instrumental textures, Emery Schubert, Joe Wolfe, Alex Tarnopolsky](https://www.google.com.tr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwir26u9mPjXAhVBL1AKHamvD6YQFggoMAA&url=https%3A%2F%2Fwww.researchgate.net%2Fpublication%2F200806323_Spectral_centroid_and_timbre_in_complex_multiple_instrumental_textures&usg=AOvVaw0zM409_UuYOW9nHoneIsvm)
+8. [Automatic Musical Pattern Feature ExtractionUsing Convolutional Neural Network](Tom LH. Li, Antoni B. Chan, Andy HW. Chun)
+9. [Music Genre Classification](https://pdfs.semanticscholar.org/c11a/c956b26df3df4c2c6a4eda097b4e1cfbdb4f.pdf)
+10. [Music Genre Classification Using Convolutional Neural Network](http://www.terasoft.com.tw/conf/ismir2014/LBD%5CLBD17.pdf)
 22. [Data Sets](https://we-l-ee.github.io/bbm406-Sin.City/data-set)
 23. [JDownloader](http://jdownloader.org/)
 24. [Librosa](https://librosa.github.io/)
