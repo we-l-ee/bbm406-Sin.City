@@ -21,12 +21,10 @@ Using CNN is become quite popular in other ML fields with each other. Qiuqiang K
 ## Methodology 
 ### Data Set 
 We have gathered our data from youtube playlist. There are various regional playlist which we have found with quick search[22]. We obtained these in ogg format and as smallest bitrate as possible we can find in order to save space. JDownloader[23] used to download these playlist with ease. Each download placed in respective folder for label in their classification. In these playlist there might be noise such as given song might not be in that regional as suggested in the name of the playlist. These will be most likely a miniscule noise. Moreover we will add more songs in the data set, hence the noise will be smaller with each growth of the data set. 
-
 ### Features
 As hitherto cited, MFFC, Spectral Centroid, Spectral roll-of, Zero-crossing rate[1] are main focus in this paper. Librosa[24] is used for feature extraction library. It is not the fastest library, it is only used because of convince. 
 ### Classification
-
-
+We will implement 3 classification model, namely SVM, CNN, K-NN. In the CNN implementation we will use tensorflow
 
 
 
@@ -37,10 +35,10 @@ Implementation of our classification will be our next step. Following our implem
 1. [Music Genre Classification, features seg. Tzanetakis and Cook](http://dspace.library.uvic.ca:8080/bitstream/handle/1828/1344/tsap02gtzan.pdf?sequence=1)
 2. [An evaluation of Convolutional Neural Networks for music classification using spectrograms, Yandre M.G. Costaa, Luiz S. Oliveira b, Carlos N. Silla Jr. c](http://www.inf.ufpr.br/lesoliveira/download/ASOC2017.pdf)
 3. [The Study of the Classification of Chinese Folk Songs by Regional Style, Yi Liu, JiePing Xu, Lei Wei, Yun Tian](http://ieeexplore.ieee.org/abstract/document/4338407/)
-4. [Mel Frequenct Cepstral Coefficients for Music Modelling, Beth Logan](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.11.9216&rep=rep1&type=pdf)
+4. [Mel Frequenct Cepstral Coefficients for Music Modelling, Beth Logan](http://www.sciencedirect.com/science/article/pii/S0167639311001622)
 5. [CLASSIFYING MUSIC AUDIO WITH TIMBRAL AND CHROMA FEATURES, Daniel P. W. Ellis](https://www.ee.columbia.edu/~dpwe/pubs/Ellis07-timbrechroma.pdf)
 6. [Improving Music Genre Classification by Short Time Feature Integration, Meng, Anders, Ahrendt, Peter,  Larsen, Jan](http://orbit.dtu.dk/en/publications/improving-music-genre-classification-by-short-time-feature-integration(551fef78-45e4-43bf-bae4-b2677b1f10fd).html)
-7. [Spectral centroid and timbre in complex, multiple instrumental textures, Emery Schubert, Joe Wolfe, Alex Tarnopolsky](https://www.google.com.tr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwir26u9mPjXAhVBL1AKHamvD6YQFggoMAA&url=https%3A%2F%2Fwww.researchgate.net%2Fpublication%2F200806323_Spectral_centroid_and_timbre_in_complex_multiple_instrumental_textures&usg=AOvVaw0zM409_UuYOW9nHoneIsvm)
+7. [Spectral centroid and timbre in complex, multiple instrumental textures, Emery Schubert, Joe Wolfe, Alex Tarnopolsky](https://www.google.com.tr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwir26u9mPjXAhVBL1AKHamvD6YQFggoMAA&url=https%3A%2F%2Fwww.researchgate.net%2Fpublication%2F200806323_Spectral_centroid_and_timbre_in_complex_multiple_instrumental_textures&usg=AOvVaw0zM409_UuYOW9nHoneIsvm)8. [Automatic Musical Pattern Feature ExtractionUsing Convolutional Neural Network](Tom LH. Li, Antoni B. Chan, Andy HW. Chun)
 8. [Automatic Musical Pattern Feature ExtractionUsing Convolutional Neural Network](Tom LH. Li, Antoni B. Chan, Andy HW. Chun)
 9. [Music Genre Classification](https://pdfs.semanticscholar.org/c11a/c956b26df3df4c2c6a4eda097b4e1cfbdb4f.pdf)
 10. [Music Genre Classification Using Convolutional Neural Network](http://www.terasoft.com.tw/conf/ismir2014/LBD%5CLBD17.pdf)
