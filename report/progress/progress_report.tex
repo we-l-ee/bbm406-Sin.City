@@ -79,6 +79,23 @@ Using CNN is become quite popular in other ML fields with each other. Qiuqiang K
 
 \subsection{Features}
 \paragraph{}As hitherto cited, MFFC, Spectral Centroid, Spectral roll-of, Zero-crossing rate\cite{genre_classification_tp} are main focus in this paper. Librosa\cite{librosa} is used for feature extraction library. It is not the fastest library, it is only used because of convenience. These features will have tremendous dimension space which would need dimension reduction with PCA(Principle Component Analysis) and feature selection techniques. 
+\begin{figure}[t]
+  \begin{center}
+  \includegraphics[width=0.8\linewidth]{images/mfcc_calc.png}
+  \end{center}  
+     \caption{MFCC Calculation Process.\cite{mfcc_calc}}
+  \label{fig:mffc}
+  \label{fig:onecol}
+\end{figure}
+\paragraph{} Above figure shows us the calculation steps of MFCC\cite{mfcc_calc}. MFCC is a convenient feature used in speak recognition, signal processing. Alternatively, spectral centroid feature is proposed and used widely. Below figure shows spectral centroid.\cite{spec_centroid}
+\begin{figure}[t]
+  \begin{center}
+  \includegraphics[width=0.8\linewidth]{images/spec_centroid.png}
+  \end{center}  
+     \caption{Subband signal, average energy, spectral centroid frequency and spectral centroid\cite{spec_centroid}.}
+  \label{fig:mffc}
+  \label{fig:onecol}
+\end{figure} 
 
 \subsection{Classification}
 \paragraph{}We will implement 3 classification model, namely SVM, CNN, K-NN. In the CNN implementation we will use tensorflow. CNN architecure will have 2 convolution layer in which each layer followed by max pooling and drop out. However it is still in progress, hence it is subject to change. SVM and K-NN will be implemented by scikit-learn python module.

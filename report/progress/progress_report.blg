@@ -2,17 +2,43 @@ This is BibTeX, Version 0.99dThe top-level auxiliary file: progress_report.aux
 The style file: ieee.bst
 Database file #1: egbib.bib
 Warning--entry type for "librosa" isn't style-file defined
---line 10 of file egbib.bib
+--line 25 of file egbib.bib
 Warning--entry type for "jdownloader" isn't style-file defined
---line 15 of file egbib.bib
+--line 30 of file egbib.bib
 Warning--entry type for "data_set" isn't style-file defined
---line 20 of file egbib.bib
+--line 35 of file egbib.bib
 Warning--to sort, need author or key in data_set
 Warning--to sort, need author or key in jdownloader
 Warning--to sort, need author or key in librosa
+Too many commas in name 1 of "Khdour, Thair & Muaidi, PHasan & Al-Ahmad, Ayat & Alqrainy, Shihadeh & Alkoffash, Mahmud." for entry mfcc_calc
+while executing---line 1073 of file ieee.bst
+Too many commas in name 1 of "Khdour, Thair & Muaidi, PHasan & Al-Ahmad, Ayat & Alqrainy, Shihadeh & Alkoffash, Mahmud." for entry mfcc_calc
+while executing---line 1073 of file ieee.bst
+Too many commas in name 1 of "Khdour, Thair & Muaidi, PHasan & Al-Ahmad, Ayat & Alqrainy, Shihadeh & Alkoffash, Mahmud." for entry mfcc_calc
+while executing---line 1073 of file ieee.bst
+Too many commas in name 1 of "Kua, J.M.K. & Thiruvaran, Tharmarajah & Nosrati, Hadis & E, Ambikairajah & Epps, Julien" for entry spec_centroid
+while executing---line 1073 of file ieee.bst
+Too many commas in name 1 of "Kua, J.M.K. & Thiruvaran, Tharmarajah & Nosrati, Hadis & E, Ambikairajah & Epps, Julien" for entry spec_centroid
+while executing---line 1073 of file ieee.bst
+Too many commas in name 1 of "Kua, J.M.K. & Thiruvaran, Tharmarajah & Nosrati, Hadis & E, Ambikairajah & Epps, Julien" for entry spec_centroid
+while executing---line 1073 of file ieee.bst
 Warning--empty journal in chroma
 Warning--empty year in chroma
 Warning--empty journal in genre_classification_tp
+Too many commas in name 1 of "Khdour, Thair & Muaidi, PHasan & Al-Ahmad, Ayat & Alqrainy, Shihadeh & Alkoffash, Mahmud." for entry mfcc_calc
+while executing---line 1116 of file ieee.bst
+Too many commas in name 1 of "Khdour, Thair & Muaidi, PHasan & Al-Ahmad, Ayat & Alqrainy, Shihadeh & Alkoffash, Mahmud." for entry mfcc_calc
+while executing---line 1116 of file ieee.bst
+Too many commas in name 1 of "Khdour, Thair & Muaidi, PHasan & Al-Ahmad, Ayat & Alqrainy, Shihadeh & Alkoffash, Mahmud." for entry mfcc_calc
+while executing---line 1116 of file ieee.bst
+Warning--there's a number but no volume in mfcc_calc
+Too many commas in name 1 of "Kua, J.M.K. & Thiruvaran, Tharmarajah & Nosrati, Hadis & E, Ambikairajah & Epps, Julien" for entry spec_centroid
+while executing---line 1116 of file ieee.bst
+Too many commas in name 1 of "Kua, J.M.K. & Thiruvaran, Tharmarajah & Nosrati, Hadis & E, Ambikairajah & Epps, Julien" for entry spec_centroid
+while executing---line 1116 of file ieee.bst
+Too many commas in name 1 of "Kua, J.M.K. & Thiruvaran, Tharmarajah & Nosrati, Hadis & E, Ambikairajah & Epps, Julien" for entry spec_centroid
+while executing---line 1116 of file ieee.bst
+Warning--empty journal in spec_centroid
 Warning--empty journal in genre_classification
 Warning--empty year in genre_classification
 Warning--empty journal in genre_cnn
@@ -20,4 +46,4 @@ Warning--empty year in genre_cnn
 Warning--empty journal in spectral_centroid
 Warning--empty journal in feature_extraction_automatic_cnn
 Warning--empty year in feature_extraction_automatic_cnn
-(There were 16 warnings)
+(There were 12 error messages)

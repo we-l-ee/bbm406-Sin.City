@@ -21,6 +21,19 @@ P.~C. G.~Tzanetakis.
 \newblock Musical genre classification of audio signals.
 \newblock 10(5):294--295, 2002.
 
+\bibitem{mfcc_calc}
+P.~. A.-A. A. . A. S. . A.~M. Khdour, Thair &~Muaidi.
+\newblock Arabic audio news retrieval system using dependent speaker mode, mel
+  frequency cepstral coefficient and dynamic time warping techniques.
+\newblock {\em Research Journal of Applied Sciences, Engineering and
+  Technology}, (7):5082--5097, 2014.
+
+\bibitem{spec_centroid}
+T.~. N.-H. . E. A. . E.~J. Kua, J.M.K. &~Thiruvaran.
+\newblock Investigation of spectral centroid magnitude and frequency for
+  speaker recognition/.
+\newblock 2010.
+
 \bibitem{mffc}
 G.~S. Md.Sahidullah.
 \newblock Design, analysis and experimental evaluation of block based
