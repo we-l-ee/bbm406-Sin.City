@@ -48,6 +48,8 @@ Implementation of our classification will be our next step. Following our implem
 23. [JDownloader](http://jdownloader.org/)
 24. [Librosa](https://librosa.github.io/)
 
+https://www.researchgate.net/figure/266895811_fig5_Fig-5-The-main-steps-for-calculating-MFCC
+
 # Related Works
 * https://pdfs.semanticscholar.org/c11a/c956b26df3df4c2c6a4eda097b4e1cfbdb4f.pdf
 * http://www.ifs.tuwien.ac.at/~andi/publications/pdf/lid_ismir05.pdf
