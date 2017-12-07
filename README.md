@@ -4,11 +4,18 @@
 In most cultures we can define a generic type of songs that defines the culture. We can even pinpoint the differences between similar cultures but relatively in a different region which might be city, county or state. This is the point where idea came to classify folk songs in Turkey region by region. Turkey has 7 geographic regions which can be seen as cultural regions. Thus, those regions do not have completely different cultures,but differences are visible which one of them is the regional songs. For instance, tulum, kemençe(endemic musical instruments for Karadeniz) can be heard in Karadeniz songs which are distinguishable from other regions songs. However, some regions have same musical infrastructure which are rhythm, instruments, chords or notes patterns and vocal type which is hard to distinguish for a human being. This one is probably the hardest challenge we will face. Hence, feature extraction is the crucial point for this matter and there are certain features can be used for our classification problem and there are some must be tried before used. We will try to implement and analyze different models and different features for this classification problem.
 
 ## Introduction 
-In machine learning most important step is the feature extraction. Just by improving features will increase dramatically for contemporary machine learning models. In the audio feature extraction, current state-of-art is being provided by MIR(Music Information Retrieval) research field. MIR is a huge field that has been under the spotlight since Tzanetakis and Cook released a paper on Music Genre Classification in 2002[1]. MIR includes audio feature extraction, signal processing, audio analyse etc. Audio feature extraction is what we are interested in MIR research field. We are planning mainly to use features: Chroma-gram, MFCC(Mel-frequency cepstral coefficients), Spectral centroid, Spectral r	roll-of, Zero-crossing rate *et al*. We will also use other features for reference points but these will be the main features. 
+In machine learning most important step is the feature extraction. Just by improving features will increase dramatically for contemporary machine learning models. In the audio feature extraction, current state-of-art is being provided by MIR(Music Information Retrieval) research field. MIR is a huge field that has been under the spotlight since Tzanetakis and Cook released a paper on Music Genre Classification in 2002[1]. MIR includes audio feature extraction, signal processing, audio analyse etc. Audio feature extraction is what we are interested in MIR research field. We are planning mainly to use features: Chroma-gram, MFCC(Mel-frequency cepstral coefficients), Spectral centroid, Spectral roll-of, Zero-crossing rate, etc. We will also use other features for reference points but these will be the main features. 
 Machine learning model selection for the job is not without importance. State-of-art models are plentiful, however they are mostly specific for a given problem. In order to find the best classification, we will use various models which will be CNN(Convolutional Neural Network), SVM(Support Vector Machine), K-NN(K Nearest Neighbor). These machine learning models will be implemented with various contemporary features discussed in MIR. Subsequently these will be analysed.   
 Analyzing will be last step in our paper. We will gather results after testing in a matrix as rows for machine learning models and columns for features. 
 
 ## Related Works
+In this paper, classification problem is more specific than any other work. since Tzanetakis and Cook presented music genre classification[1], a lot of work has been done. 
+For Audio processing and analyzing, it is hard to build-up a reliable feature extractor system for audio seems to be a more challenging task than classification problem.
+For this purpose some researches have been done about features extraction such as; MFCC[4], Chromogram[5], Zero-crossing rate[6], Spectral-Centroid[7].
+
+However,most known study for folk song classification which is based on region has been done for China[3]. On paper in interest, 74 features have been extracted from audio files of the songs, and classified by an audio classifier on SVM which is one of our concern. Research shows usthat SVM without feature selection is a very effective classification method with the combination of 13-dimension MFCC and 10-dimension without feature selection[3]. It points us to post processing and segmentation plays key role in here. Other research is called "Regional Classification of Traditional Japanese Folk Songs" by Akihiro KAWASE, Akifumi TOKOSUMI has been made. That research use music corpora consisting of 202,246 tones from 1,794 song pieces from 45 prefectures in Japan which is big enough.
+
+
 
 ## Methodology 
 
@@ -16,6 +23,14 @@ Analyzing will be last step in our paper. We will gather results after testing i
 
 ## Reference Link
 1. [Music Genre Classification, Tzanetakis and Cook](http://dspace.library.uvic.ca:8080/bitstream/handle/1828/1344/tsap02gtzan.pdf?sequence=1)
+2. [An evaluation of Convolutional Neural Networks for music
+classification using spectrograms, Yandre M.G. Costaa, Luiz S. Oliveira b, Carlos N. Silla Jr. c]http://www.inf.ufpr.br/lesoliveira/download/ASOC2017.pdf
+3. [The Study of the Classification of Chinese Folk Songs by Regional Style, Yi Liu, JiePing Xu, Lei Wei, Yun Tian]http://ieeexplore.ieee.org/abstract/document/4338407/
+4. [Design, analysis and experimental evaluation of block based transformation in MFCC computation for speaker recognition, Md.Sahidullah, Goutam Saha]http://www.sciencedirect.com/science/article/pii/S0167639311001622
+5. [CLASSIFYING MUSIC AUDIO
+WITH TIMBRAL AND CHROMA FEATURES, Daniel P. W. Ellis]https://www.ee.columbia.edu/~dpwe/pubs/Ellis07-timbrechroma.pdf
+6.[Improving Music Genre Classification by Short Time Feature Integration, Meng, Anders, Ahrendt, Peter,  Larsen, Jan] http://orbit.dtu.dk/en/publications/improving-music-genre-classification-by-short-time-feature-integration(551fef78-45e4-43bf-bae4-b2677b1f10fd).html
+7.[Spectral centroid and timbre in complex, multiple instrumental textures, Emery Schubert, Joe Wolfe, Alex Tarnopolsky] https://www.google.com.tr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwir26u9mPjXAhVBL1AKHamvD6YQFggoMAA&url=https%3A%2F%2Fwww.researchgate.net%2Fpublication%2F200806323_Spectral_centroid_and_timbre_in_complex_multiple_instrumental_textures&usg=AOvVaw0zM409_UuYOW9nHoneIsvm
 
 # Related Works
 * https://pdfs.semanticscholar.org/c11a/c956b26df3df4c2c6a4eda097b4e1cfbdb4f.pdf
