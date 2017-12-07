@@ -59,51 +59,25 @@ In machine learning most important step is the feature extraction. Just by impro
 Machine learning model selection for the job is not without importance. State-of-art models are plentiful, however they are mostly specific for a given problem. In order to find the best classification, we will use various models which will be CNN(Convolutional Neural Network), SVM(Support Vector Machine), K-NN(K Nearest Neighbor). These machine learning models will be implemented with various contemporary features discussed in MIR. Subsequently these will be analysed.   
 
 %-------------------------------------------------------------------------
-\subsection{Language}
+\section{Related Works}
 
 All manuscripts must be in English.
 
-\subsection{Dual submission}
+%-------------------------------------------------------------------------
+\section{Methodology}
 
 Please refer to the author guidelines on the CVPR 2017 web page for a
 discussion of the policy on dual submissions.
 
-\subsection{Paper length}
-Papers, excluding the references section,
-must be no longer than eight pages in length. The references section
-will not be included in the page count, and there is no limit on the
-length of the references section. For example, a paper of eight pages
-with two pages of references would have a total length of 10 pages.
-{\bf There will be no extra page charges for
-  CVPR 2017.}
+\subsection{Data Set}
+We have gathered our data from youtube playlist. There are various regional playlist which we have found with quick search[22]. We obtained these in ogg format and as smallest bitrate as possible we can find in order to save space. JDownloader[23] used to download these playlist with ease. Each download placed in respective folder for label in their classification. In these playlist there might be noise such as given song might not be in that regional as suggested in the name of the playlist. These will be most likely a miniscule noise. Moreover we will add more songs in the data set, hence the noise will be smaller with each growth of the data set. 
 
-Overlength papers will simply not be reviewed.  This includes papers
-where the margins and formatting are deemed to have been significantly
-altered from those laid down by this style guide.  Note that this
-\LaTeX\ guide already sets figure captions and references in a smaller font.
-The reason such papers will not be reviewed is that there is no provision for
-supervised revisions of manuscripts.  The reviewing process cannot determine
-the suitability of the paper for presentation in eight pages if it is
-reviewed in eleven.  
 
-%-------------------------------------------------------------------------
-\subsection{The ruler}
-The \LaTeX\ style defines a printed ruler which should be present in the
-version submitted for review.  The ruler is provided in order that
-reviewers may comment on particular lines in the paper without
-circumlocution.  If you are preparing a document using a non-\LaTeX\
-document preparation system, please arrange for an equivalent ruler to
-appear on the final output pages.  The presence or absence of the ruler
-should not change the appearance of any other content on the page.  The
-camera ready copy should not contain a ruler. (\LaTeX\ users may uncomment
-the \verb'\cvprfinalcopy' command in the document preamble.)  Reviewers:
-note that the ruler measurements do not align well with lines in the paper
---- this turns out to be very difficult to do well when the paper contains
-many figures and equations, and, when done, looks ugly.  Just use fractional
-references (e.g.\ this line is $095.5$), although in most cases one would
-expect that the approximate location will be adequate.
 
-\subsection{Mathematics}
+\subsection{Features}
+As hitherto cited, MFFC, Spectral Centroid, Spectral roll-of, Zero-crossing rate[1] are main focus in this paper. Librosa[24] is used for feature extraction library. It is not the fastest library, it is only used because of convince. 
+
+\section{Feature Works}
 
 Please number all of your sections and displayed equations.  It is
 important for readers to be able to refer to any particular equation.  Just

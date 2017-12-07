@@ -136,17 +136,6 @@ INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr7t.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr7t.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb7t.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmri7t.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb7t.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msam10.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msam7.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msam5.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr7t.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr7t.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmb7t.vf
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT C:/Users/MuHaMMeT/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map
@@ -162,10 +151,15 @@ INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmr7t.vf
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmb.vf
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb8r.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmb7t.vf
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb8r.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmr7t.vf
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr7t.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msam7.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msam5.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/courier/pcrr7t.vf
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr7t.tfm
@@ -180,17 +174,23 @@ INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmti7.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmti7.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmr7t.vf
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb7t.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmti8.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmti7.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr7t.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmr7t.vf
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmr7t.vf
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT progress_report.bbl
 INPUT progress_report.bbl
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmri7t.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmb7t.vf
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb8r.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmr7t.vf
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmr7t.vf
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmr7t.vf
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmri7t.vf
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT progress_report.aux

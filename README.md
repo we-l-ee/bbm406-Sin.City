@@ -12,17 +12,24 @@ Analyzing will be last step in our paper. We will gather results after the testi
 
 ## Methodology 
 ### Data Set 
-We have gathered our data from youtube playlist. There are various regional playlist which we have found with quick search[2]. We obtained these in ogg format, smallest bitrate we can find in order to save space. JDownloader[3] used to download these playlist with ease. Each download placed in respective folder for label in their classification. In these playlist there might be noise such as given song might not be in that regional as suggested in the name of the playlist.
+We have gathered our data from youtube playlist. There are various regional playlist which we have found with quick search[22]. We obtained these in ogg format and as smallest bitrate as possible we can find in order to save space. JDownloader[23] used to download these playlist with ease. Each download placed in respective folder for label in their classification. In these playlist there might be noise such as given song might not be in that regional as suggested in the name of the playlist. These will be most likely a miniscule noise. Moreover we will add more songs in the data set, hence the noise will be smaller with each growth of the data set. 
+
+### Features
+As hitherto cited, MFFC, Spectral Centroid, Spectral roll-of, Zero-crossing rate[1] are main focus in this paper. Librosa[24] is used for feature extraction library. It is not the fastest library, it is only used because of convince. 
+### Classification
+
 
 
 
 
 ## Feature Works
+Implementation of our classification will be our next step. Following our implementation we will test it with our focus features and along the way features that we thought might improve accuracy. Feature extraction libraries might changes, following that if the new library does not have our features, they might change too--little chance. However we will not change library if we might loose critical feature we have found out after our tests.
 
 ## Reference Link
-1. [Music Genre Classification, Tzanetakis and Cook](http://dspace.library.uvic.ca:8080/bitstream/handle/1828/1344/tsap02gtzan.pdf?sequence=1)
-2. [Data Sets](https://we-l-ee.github.io/bbm406-Sin.City/#dataset-links)
-3. [JDownloader](http://jdownloader.org/)
+1. [Music Genre Classification, features seg. Tzanetakis and Cook](http://dspace.library.uvic.ca:8080/bitstream/handle/1828/1344/tsap02gtzan.pdf?sequence=1)
+22. [Data Sets](https://we-l-ee.github.io/bbm406-Sin.City/data-set)
+23. [JDownloader](http://jdownloader.org/)
+24. [Librosa](https://librosa.github.io/)
 
 # Related Works
 * https://pdfs.semanticscholar.org/c11a/c956b26df3df4c2c6a4eda097b4e1cfbdb4f.pdf
