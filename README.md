@@ -38,8 +38,8 @@ Implementation of our classification will be our next step. Following our implem
 4. [Mel Frequenct Cepstral Coefficients for Music Modelling, Beth Logan](http://www.sciencedirect.com/science/article/pii/S0167639311001622)
 5. [CLASSIFYING MUSIC AUDIO WITH TIMBRAL AND CHROMA FEATURES, Daniel P. W. Ellis](https://www.ee.columbia.edu/~dpwe/pubs/Ellis07-timbrechroma.pdf)
 6. [Improving Music Genre Classification by Short Time Feature Integration, Meng, Anders, Ahrendt, Peter,  Larsen, Jan](http://orbit.dtu.dk/en/publications/improving-music-genre-classification-by-short-time-feature-integration(551fef78-45e4-43bf-bae4-b2677b1f10fd).html)
-7. [Spectral centroid and timbre in complex, multiple instrumental textures, Emery Schubert, Joe Wolfe, Alex Tarnopolsky](https://www.google.com.tr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwir26u9mPjXAhVBL1AKHamvD6YQFggoMAA&url=https%3A%2F%2Fwww.researchgate.net%2Fpublication%2F200806323_Spectral_centroid_and_timbre_in_complex_multiple_instrumental_textures&usg=AOvVaw0zM409_UuYOW9nHoneIsvm)8. [Automatic Musical Pattern Feature ExtractionUsing Convolutional Neural Network](Tom LH. Li, Antoni B. Chan, Andy HW. Chun)
-8. [Automatic Musical Pattern Feature ExtractionUsing Convolutional Neural Network](Tom LH. Li, Antoni B. Chan, Andy HW. Chun)
+7. [Spectral centroid and timbre in complex, multiple instrumental textures, Emery Schubert, Joe Wolfe, Alex Tarnopolsky](https://www.google.com.tr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwir26u9mPjXAhVBL1AKHamvD6YQFggoMAA&url=https%3A%2F%2Fwww.researchgate.net%2Fpublication%2F200806323_Spectral_centroid_and_timbre_in_complex_multiple_instrumental_textures&usg=AOvVaw0zM409_UuYOW9nHoneIsvm)
+8. [Automatic Musical Pattern Feature Extraction Using Convolutional Neural Network](http://www.iaeng.org/publication/IMECS2010/IMECS2010_pp546-550.pdf)
 9. [Music Genre Classification](https://pdfs.semanticscholar.org/c11a/c956b26df3df4c2c6a4eda097b4e1cfbdb4f.pdf)
 10. [Music Genre Classification Using Convolutional Neural Network](http://www.terasoft.com.tw/conf/ismir2014/LBD%5CLBD17.pdf)
 22. [Data Sets](https://we-l-ee.github.io/bbm406-Sin.City/data-set)
@@ -124,11 +124,6 @@ Implementation of our classification will be our next step. Following our implem
 	* http://deepsound.io/music_genre_recognition.html
 	* PCA, Dimension Reduction, Feature Selection, Discrimination, LDA
 	
-# Related Projects
-* https://github.com/meetshah1995/crnn-music-genre-classification 
-* https://github.com/jsalbert/Music-Genre-Classification-with-Deep-Learning
-* https://github.com/mlachmish/MusicGenreClassification
-
 # Machine Learning Libraries Options
 * TensorFlow
 * scikit-learn
