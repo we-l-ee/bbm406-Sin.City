@@ -61,13 +61,14 @@ Machine learning model selection for the job is not without importance. State-of
 %-------------------------------------------------------------------------
 \section{Related Works}
 
-All manuscripts must be in English.
+In this paper, classification problem is more specific than any other work. since Tzanetakis and Cook presented music genre classification[1], a lot of work has been done. 
+For Audio processing and analyzing, it is hard to build-up a reliable feature extractor system for audio seems to be a more challenging task than classification problem.
+For this purpose some researches have been done about features extraction such as; MFCC[4], Chromogram[5], Zero-crossing rate[6], Spectral-Centroid[7].
+
+However,most known study for folk song classification which is based on region has been done for China[3]. On paper in interest, 74 features have been extracted from audio files of the songs, and classified by an audio classifier on SVM which is one of our concern. Research shows usthat SVM without feature selection is a very effective classification method with the combination of 13-dimension MFCC and 10-dimension without feature selection[3]. It points us to post processing and segmentation plays key role in here. Other research is called "Regional Classification of Traditional Japanese Folk Songs" by Akihiro KAWASE, Akifumi TOKOSUMI has been made. That research use music corpora consisting of 202,246 tones from 1,794 song pieces from 45 prefectures in Japan which is big enough.
 
 %-------------------------------------------------------------------------
 \section{Methodology}
-
-Please refer to the author guidelines on the CVPR 2017 web page for a
-discussion of the policy on dual submissions.
 
 \subsection{Data Set}
 We have gathered our data from youtube playlist. There are various regional playlist which we have found with quick search[22]. We obtained these in ogg format and as smallest bitrate as possible we can find in order to save space. JDownloader[23] used to download these playlist with ease. Each download placed in respective folder for label in their classification. In these playlist there might be noise such as given song might not be in that regional as suggested in the name of the playlist. These will be most likely a miniscule noise. Moreover we will add more songs in the data set, hence the noise will be smaller with each growth of the data set. 
@@ -76,6 +77,7 @@ We have gathered our data from youtube playlist. There are various regional play
 
 \subsection{Features}
 As hitherto cited, MFFC, Spectral Centroid, Spectral roll-of, Zero-crossing rate[1] are main focus in this paper. Librosa[24] is used for feature extraction library. It is not the fastest library, it is only used because of convince. 
+\subsection{Classification}
 
 \section{Feature Works}
 
@@ -195,7 +197,7 @@ He or she would have to be sure that no other authors could have been
 contracted to solve problem B.
 
 FAQ: Are acknowledgements OK?  No.  Leave them for the final copy.
-
+s
 
 \begin{figure}[t]
 \begin{center}
