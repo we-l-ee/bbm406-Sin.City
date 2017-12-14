@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c4e85bac-5d27-4bd6-85e4-318ced95087f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../datasets/New Text Document.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../report/progress/progress_report.aux" afterPath="$PROJECT_DIR$/../report/progress/progress_report.aux" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../report/progress/progress_report.pdf" afterPath="$PROJECT_DIR$/../report/progress/progress_report.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../report/progress/progress_report.synctex.gz" afterPath="$PROJECT_DIR$/../report/progress/progress_report.synctex.gz" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../resource/Data Mining Music - Tao Li, Mitsunori Ogihara, George Tzanetakis.pdf" afterPath="$PROJECT_DIR$/../resource/Data Mining Music - Tao Li, Mitsunori Ogihara, George Tzanetakis.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/code.iml" afterPath="$PROJECT_DIR$/.idea/code.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../report/progress/progress_report.fdb_latexmk" afterPath="$PROJECT_DIR$/../report/progress/progress_report.fdb_latexmk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../report/progress/progress_report.log" afterPath="$PROJECT_DIR$/../report/progress/progress_report.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../report/progress/progress_report.tex" afterPath="$PROJECT_DIR$/../report/progress/progress_report.tex" />
-    </list>
+    <list default="true" id="c4e85bac-5d27-4bd6-85e4-318ced95087f" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +11,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="189">
@@ -49,7 +35,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fix_data.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="fix_data.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fix_data.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -428,6 +414,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="798">
@@ -443,16 +439,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
