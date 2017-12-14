@@ -1,39 +1,23 @@
 # Songs in the Noisy City
+[Doc, GitHub pages](https://we-l-ee.github.io/bbm406-Sin.City/)
 
-## Abstract
-In most cultures we can define a generic type of songs that defines the culture. We can even pinpoint the differences between similar cultures but relatively in a different region which might be city, county or state. This is the point where idea came to classify folk songs in Turkey region by region. Turkey has 7 geographic regions which can be seen as cultural regions. Thus, those regions do not have completely different cultures,but differences are visible which one of them is the regional songs. For instance, tulum, kemençe(endemic musical instruments for Karadeniz) can be heard in Karadeniz songs which are distinguishable from other regions songs. However, some regions have same musical infrastructure which are rhythm, instruments, chords or notes patterns and vocal type which is hard to distinguish for a human being. This one is probably the hardest challenge we will face. Hence, feature extraction is the crucial point for this matter and there are certain features can be used for our classification problem and there are some must be tried before used. We will try to implement and analyze different models and different features for this classification problem.
+## Definitions
+* Quantization (signal processing), in mathematics and digital signal processing, is the process of mapping input values from a large set (often a continuous set) to output values in a (countable) smaller set. Rounding and truncation are typical examples of quantization processes[[wiki](https://en.wikipedia.org/wiki/Quantization_(signal_processing))]
 
-## Introduction 
-In machine learning most important step is the feature extraction. Just by improving features will increase dramatically for contemporary machine learning models. In the audio feature extraction, current state-of-art is being provided by MIR(Music Information Retrieval) research field. MIR is a huge field that has been under the spotlight since Tzanetakis and Cook released a paper on Music Genre Classification in 2002[1]. MIR includes audio feature extraction, signal processing, audio analyse etc. Audio feature extraction is what we are interested in MIR research field. We are planning mainly to use features: Chroma-gram, MFCC(Mel-frequency cepstral coefficients), Spectral centroid, Spectral roll-of, Zero-crossing rate, etc. We will also use other features for reference points but these will be the main features. 
-Machine learning model selection for the job is not without importance. State-of-art models are plentiful, however they are mostly specific for a given problem. In order to find the best classification, we will use various models which will be CNN(Convolutional Neural Network), SVM(Support Vector Machine), K-NN(K Nearest Neighbor). These machine learning models will be implemented with various contemporary features discussed in MIR. Subsequently these will be analysed.   
-Analyzing will be last step in our paper. We will gather results after the testing which in a matrix as rows for machine learning models and columns for features. Best model and features will be apparent after the testing is done. Confusion matrix will be constructed by using our best model and features.
+## Paper
 
-## Related Works
-In this paper, classification problem is more specific than any other work. since Tzanetakis and Cook presented music genre classification[1], a lot of work has been done. 
-For Audio processing and analyzing, it is hard to build-up a reliable feature extractor system for audio seems to be a more challenging task than classification problem.
-For this purpose some researches have been done about features extraction such as; MFCC[4], Chromogram[5], Zero-crossing rate[6], Spectral-Centroid[7].
+* Fourier Transformation and it`s effect to our features.
 
-The most known study for folk song classification which is based on region has been done for China[3]. On paper in interest, 74 features have been extracted from audio files of the songs, and classified by an audio classifier on SVM which is one of our concern. Research shows usthat SVM without feature selection is a very effective classification method with the combination of 13-dimension MFCC and 10-dimension without feature selection[3]. It points us to post processing and segmentation plays key role in here. Other research is called "Regional Classification of Traditional Japanese Folk Songs" by Akihiro KAWASE, Akifumi TOKOSUMI has been made. That research use music corpora consisting of 202,246 tones from 1,794 song pieces from 45 prefectures in Japan which is big enough.
+## Video
 
-In another research[8], presented a methodology to automatically extract musical patterns features from audio music using the CNN which is easy to use for feature extractors, it because need minimal prior knowledge to construct. Some other paper uses[9] various machine learning algorithms that are including k-nearest neighbor (kNN), k-means, multi-class SVM, and neural networks to classify the following four genres: classical, jazz, metal, and pop and only Mel Frequency Cepstral Coefficients (MFCC) is used to characterize data.
-Using CNN is become quite popular in other ML fields with each other. Qiuqiang Kong, et al[10] stated that many manual-selected features such as MFCC have been applied to music processing but they are not effective for music genre classification. In their work, it is presented an algorithm based on spectrogram and CNN and compared with MFCC, the spectrogram contains more details of music components such as pitch, flux, etc. 
-
-## Methodology 
-### Data Set 
-We have gathered our data from youtube playlist. There are various regional playlist which we have found with quick search[22]. We obtained these in ogg format and as smallest bitrate as possible we can find in order to save space. JDownloader[23] used to download these playlist with ease. Each download placed in respective folder for label in their classification. In these playlist there might be noise such as given song might not be in that regional as suggested in the name of the playlist. These will be most likely a miniscule noise. Moreover we will add more songs in the data set, hence the noise will be smaller with each growth of the data set. 
-### Features
-As hitherto cited, MFFC, Spectral Centroid, Spectral roll-of, Zero-crossing rate[1] are main focus in this paper. Librosa[24] is used for feature extraction library. It is not the fastest library, it is only used because of convince. 
-### Classification
-We will implement 3 classification model, namely SVM, CNN, K-NN. In the CNN implementation we will use tensorflow
-
-
-
-## Feature Works
-Implementation of our classification will be our next step. Following our implementation we will test it with our focus features and along the way features that we thought might improve accuracy. Feature extraction libraries might changes, following that if the new library does not have our features, they might change too--little chance. However we will not change library if we might loose critical feature we have found out after our tests.
+## Presentation
 
 ## Reference Link
+
 1. [Music Genre Classification, features seg. Tzanetakis and Cook](http://dspace.library.uvic.ca:8080/bitstream/handle/1828/1344/tsap02gtzan.pdf?sequence=1)
+
 2. [An evaluation of Convolutional Neural Networks for music classification using spectrograms, Yandre M.G. Costaa, Luiz S. Oliveira b, Carlos N. Silla Jr. c](http://www.inf.ufpr.br/lesoliveira/download/ASOC2017.pdf)
+
 3. [The Study of the Classification of Chinese Folk Songs by Regional Style, Yi Liu, JiePing Xu, Lei Wei, Yun Tian](http://ieeexplore.ieee.org/abstract/document/4338407/)
 4. [Mel Frequenct Cepstral Coefficients for Music Modelling, Beth Logan](http://www.sciencedirect.com/science/article/pii/S0167639311001622)
 5. [CLASSIFYING MUSIC AUDIO WITH TIMBRAL AND CHROMA FEATURES, Daniel P. W. Ellis](https://www.ee.columbia.edu/~dpwe/pubs/Ellis07-timbrechroma.pdf)

@@ -150,9 +150,23 @@ INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmri7t.vf
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmr7t.vf
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT images/mfcc_calc.png
+INPUT ./images/mfcc_calc.png
+INPUT ./images/mfcc_calc.png
+INPUT ./images/mfcc_calc.png
+INPUT ./images/mfcc_calc.png
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr7t.tfm
+INPUT images/spec_centroid.png
+INPUT ./images/spec_centroid.png
+INPUT ./images/spec_centroid.png
+INPUT ./images/spec_centroid.png
+INPUT ./images/spec_centroid.png
 INPUT progress_report.bbl
 INPUT progress_report.bbl
+INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmb.vf
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb8r.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmr7t.vf
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmr9.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmmi9.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmsy9.tfm
@@ -163,10 +177,6 @@ INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmri7t.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmb.vf
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb8r.tfm
-INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmr7t.vf
-INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/vf/adobe/times/ptmri7t.vf
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT progress_report.aux
