@@ -4,27 +4,31 @@ import argparse
 import tensorflow as tf
 import keras
 
-os.chdir('..')
-path = "datasets\\ege\\e_0.ogg"
+path = "D:/wd/bbm406/dataset_s"
 # @res_type=scipy sucks
-y,sr = lb.core.load(path)
+# y,sr = lb.core.load(path)
 
 
 def init_nn(in_dim, units, activations):
     model = keras.models.Sequential
     model.add(keras.Dense(units=units[0], activation=[0], input_dim=in_dim))
-    for u, a in zip(units[1:], activations):
+    for u, a in zip(units[1:], activations[1:]):
         model.add(keras.Dense(units=u, activation=a))
 
+    return model
 
 
 def extract_feature(dataset='datasets', stride=128):
+    features, labels = [], []
     for root, sub, flist in os.walk(dataset):
         for f in flist:
             path = os.path.join(root,f)
             print(path)
             y, sr = lb.core.load(path,offset=30,duration=30)
-            lb.feature.mfcc(y, sr)
+            features.append(lb.feature.mfcc(y, sr, n_mfcc=10))
+            labels.append(f.split("_")[0], )
+
+    return (features,labels)
 
 def main():
 
@@ -152,3 +156,14 @@ def main():
 
 # if __name__ == '__main__':
 #     main()
+
+
+
+model = init_nn(1292, [30,2], ['relu','relu','softmax'])
+
+model.compile(loss='categorical_crossentropy',
+              optimizer='sgd',
+              metrics=['accuracy'])
+
+
+xy = extract_feature(path)

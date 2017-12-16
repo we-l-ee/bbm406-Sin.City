@@ -1,20 +1,11 @@
 import librosa as lb
 import librosa.display
-import matplotlib.pyplot as plt
 import numpy as np
 import os
-from tinytag import TinyTag
 import audioread
-import magic
+import sys
 
-import sklearn
-
-# 2 random offset by 30 seconds
-sample_length = 660000
-hamming_size = 1000
-hamming_stride = 1000
-
-root_dir = 'dataset'
+root_dir = sys.argv[1]
 features = []
 labels = list()
 part_in_seconds = 30
@@ -28,8 +19,11 @@ for dir_name, subdir_list, file_list in os.walk(root_dir):
         print(file_path)
         label = file_path.split('\\')[1]
 
-        with audioread.audio_open(file_path) as f:
-            duration = f.duration
+        try:
+            with audioread.audio_open(file_path) as f:
+                duration = f.duration
+        except Exception:
+            continue
 
         parts = duration//part_in_seconds
         if parts > max_part:
