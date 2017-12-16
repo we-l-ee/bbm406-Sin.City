@@ -5,7 +5,7 @@
 * Quantization (signal processing), in mathematics and digital signal processing, is the process of mapping input values from a large set (often a continuous set) to output values in a (countable) smaller set. Rounding and truncation are typical examples of quantization processes[[wiki](https://en.wikipedia.org/wiki/Quantization_(signal_processing))]
 
 ## Paper
-
+* MFCC scaling (http://musicinformationretrieval.com/mfcc.html)
 * Fourier Transformation and it`s effect to our features.
 
 ## Video
