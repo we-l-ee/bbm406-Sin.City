@@ -8,9 +8,8 @@ import sys
 root_dir = sys.argv[1]
 features = []
 labels = list()
-part_in_seconds = 30
-max_part = 5
-
+part_in_seconds = 10
+#max_part = 5
 # encoded_labels = {'akdeniz': 0, 'doguanadolu': 1, 'ege': 2, 'guneydoguanadolu': 3, 'icanadolu': 4, 'karadeniz': 5, 'trakya': 6}
 encoded_labels = dict()
 label_counter = 0
@@ -21,16 +20,12 @@ for dir_name, subdir_list, file_list in os.walk(root_dir):
         label = file_path.split('\\')[1]
 
         try:
-            with audioread.audio_open(file_path) as f:
-                duration = f.duration
+            y, sr = lb.load(file_path)
+            duration = lb.core.get_duration(y, sr)
+            parts = int(duration/part_in_seconds)
         except Exception:
             continue
 
-        parts = duration//part_in_seconds
-        if parts > max_part:
-            parts = max_part
-
-        y, sr = lb.load(file_path, duration=part_in_seconds*parts)
         mfc = lb.feature.melspectrogram(y=y, sr=sr).T
         log_S = librosa.logamplitude(mfc, ref_power=np.max)
 
@@ -45,11 +40,12 @@ for dir_name, subdir_list, file_list in os.walk(root_dir):
                 encoded_labels[label] = label_counter
                 label_counter += 1
 
+
 if not os.path.exists('model'):
     os.makedirs('model')
 
+lb.core.get_duration()
 np.save('model/log_melspectrogram.npy', features)
 np.save('model/labels.npy', labels)
 np.save('model/encoded_labels.npy', [encoded_labels])
-
 
