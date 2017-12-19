@@ -10,6 +10,7 @@ features = []
 labels = list()
 part_in_seconds = 30
 max_part = 5
+
 # encoded_labels = {'akdeniz': 0, 'doguanadolu': 1, 'ege': 2, 'guneydoguanadolu': 3, 'icanadolu': 4, 'karadeniz': 5, 'trakya': 6}
 encoded_labels = dict()
 label_counter = 0
