@@ -3,6 +3,7 @@ import librosa as lb
 import argparse
 import tensorflow as tf
 import keras
+import feature_extraction as feature
 
 path = "D:/wd/bbm406/dataset_s"
 # @res_type=scipy sucks
@@ -16,7 +17,7 @@ def init_nn(in_dim, units, activations):
         model.add(keras.Dense(units=u, activation=a))
 
     return model
-
+keras.layers.Conv1D
 
 def extract_feature(dataset='datasets', stride=128):
     features, labels = [], []
@@ -156,7 +157,10 @@ def main():
 
 # if __name__ == '__main__':
 #     main()
-
+x, y = feature.read_train_instructions()
+train_set = feature.trainset(x, y)
+xx, yy = feature.train_subsetn_random(train_set)
+f, l = feature.extract(xx, yy)
 
 
 model = init_nn(1292, [30,2], ['relu','relu','softmax'])

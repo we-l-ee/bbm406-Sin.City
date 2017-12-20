@@ -22,7 +22,7 @@ def read_train_instructions(ftrain="train.txt"):
         for i in arr:
             d = i.split("\t")
             x.append(d[1])
-            y.append(d[0])
+            y.append(int(d[0]))
     return np.array(x), np.array(y)
 
 
@@ -40,48 +40,42 @@ def train_subsetn_random(set, train_subsetn=10):
     x, y = [], []
 
     for l in set:
-        xx = np.array(set[l])
-        indices = list(range(len(xx)))
-        xx = xx[np.random.shuffle(indices)]
+        xx = np.array(set[l], dtype=object)
+        np.random.shuffle(xx)
         xx = xx[:train_subsetn]
         yy = np.empty(train_subsetn)
         yy.fill(l)
-        x.extend(xx.tolist())
+        x.extend(xx)
         y.extend(yy.tolist())
     return np.array(x), np.array(y)
 
 
-def extract():
+def extract(_paths, _labels):
     label_counter = 0
-    for dir_name, subdir_list, file_list in os.walk(root_dir):
-        for f_name in file_list:
-            file_path = os.path.join(dir_name, f_name)
-            print(file_path)
-            label = file_path.split('\\')[1]
+    labels = []
+    for p, l in zip(_paths, _labels):
+        print(p)
+        label = p.split('\\')[1]
 
-            try:
-                y, sr = lb.load(file_path)
-                duration = lb.core.get_duration(y=y, sr=sr)
-                parts = int(duration/part_in_seconds)
-            except AssertionError:
-                continue
+        try:
+            y, sr = lb.load(p)
+            duration = lb.core.get_duration(y=y, sr=sr)
+            parts = int(duration/part_in_seconds)
+        except AssertionError:
+            continue
 
-            mfc = lb.feature.melspectrogram(y=y, sr=sr).T
-            log_S = librosa.logamplitude(mfc, ref_power=np.max)
+        mfc = lb.feature.melspectrogram(y=y, sr=sr).T
+        log_S = librosa.logamplitude(mfc, ref_power=np.max)
 
-            size = len(log_S)/parts
+        size = len(log_S)/parts
 
-            for i in range(0, len(log_S), int(size)):
-                features.append(log_S[i:i+int(size)])
-                if label in encoded_labels:
-                    labels.append(encoded_labels[label])
-                else:
-                    labels.append(label_counter)
-                    encoded_labels[label] = label_counter
-                    label_counter += 1
+        for i in range(0, len(log_S), int(size)):
+            features.append(log_S[i:i+int(size)])
+            labels.append(l)
 
+    return features, labels
 
 x, y = read_train_instructions()
 train_set = trainset(x, y)
 xx, yy = train_subsetn_random(train_set)
-
+f, l = extract(xx, yy)
