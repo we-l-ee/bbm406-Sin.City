@@ -77,36 +77,38 @@ def extract_train(_paths, _labels):
                 y, sr = lb.load(p[:-1], res_type='kaiser_fast')
             else:
                 y, sr = lb.load(p, res_type='kaiser_fast')
-            duration = lb.core.get_duration(y=y, sr=sr)
+            duration = y.shape[0] / sr
             parts = int(duration / part_in_seconds)
-
+            part_len = sr*part_in_seconds
         except AssertionError:
             continue
         except RuntimeError:
             continue
 
+        for i in range(0, parts*part_len, part_len):
 
-        mfc = lb.feature.melspectrogram(y=y, sr=sr).T
-        log_S = lb.logamplitude(mfc, ref_power=np.max)
-
+            mfc = lb.feature.melspectrogram(y=y[i:i+part_len], sr=sr).T
+            log_S = lb.logamplitude(mfc, ref_power=np.max)
+            features.append(mfc)
+            labels.append(l)
 
         # print(duration)
         # print(len(log_S))
 
-        size = int(len(log_S) / parts)
-        #print('size:',size,'spect len:',len(log_S))
-        for i in range(0, len(log_S) - size, size):
-            frame = log_S[i:i + size].copy()
-            if row == -1:
-                row = frame.shape[0]
-            else:
-                if row < frame.shape[0]:
-                    frame = frame[:row]
-                elif row > frame.shape[0]:
-                    temp = np.zeros((row-frame.shape[0], frame.shape[1]))
-                    frame = np.vstack((frame, temp))
-            features.append(frame)
-            labels.append(l)
+        # size = int(len(log_S) / parts)
+        # #print('size:',size,'spect len:',len(log_S))
+        # for i in range(0, len(log_S) - size, size):
+        #     frame = log_S[i:i + size].copy()
+        #     if row == -1:
+        #         row = frame.shape[0]
+        #     else:
+        #         if row < frame.shape[0]:
+        #             frame = frame[:row]
+        #         elif row > frame.shape[0]:
+        #             temp = np.zeros((row-frame.shape[0], frame.shape[1]))
+        #             frame = np.vstack((frame, temp))
+        #     features.append(frame)
+        #     labels.append(l)
 
     # print(np.shape(features))
     # print(np.shape(features[0]))

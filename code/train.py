@@ -210,7 +210,7 @@ def main(cnn_number=4, train_subset=2, fit_time_per_model=1,):
 def train(train_set, cnn_number, train_subset, fit_time_per_model):
     cnn_models = list()
     batch_size = 16
-    epochs = 5
+    epochs = 1
 
     for _ in range(cnn_number):
         xt, yt = feature.subsetn_random(train_set, train_subset)
@@ -300,5 +300,5 @@ xt, yt = feature.subsetn_random(train_set, 1)
 ft, lt = feature.extract(xt, yt)
 x_train = ft.reshape(ft.shape[0], ft.shape[1], ft.shape[2], 1).astype('float32')
 '''''
-main(2)
+main(1)
 
