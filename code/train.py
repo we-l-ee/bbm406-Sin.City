@@ -9,8 +9,6 @@ from keras.layers.advanced_activations import ELU, LeakyReLU
 from keras.layers.normalization import BatchNormalization
 from keras.models import Sequential, load_model
 from keras.utils import np_utils
-
-from sklearn import svm
 cnn_models_path = 'model/cnn_models/'
 
 """"
