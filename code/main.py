@@ -9,25 +9,10 @@ models_path = 'models'
 def train(train_set, classifiers=('cnn', 'cnn'), train_subset=2, fit_time_per_model=1, feature_type='melspectogram',
           **kwargs):
 
-    models = []
-
     for classifier in classifiers:
-        xt, yt = feature.subsetn_random(train_set, train_subset)
-        ft, lt = feature.extract(xt, yt, feature_type)
-        print('creating model', classifier.name)
-        nb_classes = len(np.unique(lt))
+        classifier.train(train_set, train_subset, fit_time_per_model, feature_type, **kwargs)
 
-        x_train, y_train = classifier.prepare_data(ft, lt)
-        classifier.build_model(x_train, nb_classes=nb_classes)
-
-        for fit_t in range(fit_time_per_model):
-            if fit_t != 0:
-                x_train, y_train = classifier.prepare_data(ft, lt)
-
-            classifier.fit(x_train, y_train, **kwargs)
-        models.append(classifier)
-
-    save_all_models(models)
+    save_all_models(classifiers)
 
 
 def load_models(path):
@@ -101,9 +86,18 @@ def test(x_test, y_test, cnn_models, process='accuracy-percent', **kwargs):
     model_estimations = [predict(x_test, model, "estimate-percent") for model in cnn_models]
     print(model_estimations)
     exit(0)
+
+    labels = [[None, 0]] * len(y_test)
     for estimations in model_estimations:
-        for estimate in estimations:
-            label, percemt = estimate
+        for i in range(len(estimations)):
+            label, percent = estimations[i]
+            if labels[i][0] != label:
+                if label[i][1] < percent:
+                    label[i][1] = percent
+            else:
+                labels[i][1] += percent
+
+    return labels
 
 
 def predict(x_test, models, process='all-predictions'):
@@ -118,8 +112,7 @@ def predict(x_test, models, process='all-predictions'):
         each_model = []
         for model in models:
             f = feature.extract([path])
-            x_test = f.reshape(f.shape[0], f.shape[1], f.shape[2], 1).astype('float32')
-
+            x_test, null = model.prepare_data(f, None)
             each_model.append(func(model.predict(x_test)))
 
         preds.append(each_model)

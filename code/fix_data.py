@@ -15,7 +15,7 @@ raw_audio = pipe.stdout.read(88200*4)
 audio_array = np.fromstring(raw_audio, dtype="float32")
 # audio_array = audio_array.reshape((int(len(audio_array)/2), 2))
 print(audio_array)
-'''
+
 import numpy as np
 import audioread as ar
 import scipy.signal
@@ -55,5 +55,7 @@ with ar.audio_open( "F:\\d_0.ogg") as file:
 
         y = np.ascontiguousarray(y, dtype=np.float32)
     print(y.shape)
+'''
+
 
 

@@ -34,8 +34,8 @@ def compute_spectral_centroid(y, sr, i, part_len):
 
 
 def compute_spectral_rolloff(y, sr, i, part_len):
-    centroid = lb.feature.spectral_rolloff(y=y[i: + part_len], sr=sr, n_mfcc=40)
-    return centroid
+    roll_off = lb.feature.spectral_rolloff(y=y[i: + part_len], sr=sr)
+    return roll_off
 
 
 def zero_crossing_rate(y, sr, i, part_len):

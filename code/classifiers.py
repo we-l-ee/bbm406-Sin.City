@@ -9,7 +9,7 @@ from sklearn import svm
 from sklearn import neighbors
 from sklearn.externals import joblib
 
-
+import feature_extraction as feature
 from abc import ABC, abstractmethod
 
 
@@ -39,6 +39,29 @@ class BaseClassifier(ABC):
     def save(self, path):
         pass
 
+    @abstractmethod
+    def predict(self, x_test, **kwargs):
+        pass
+
+    @abstractmethod
+    def evaluate(self, predictions, y_test):
+        pass
+
+    def train(self, train_set, train_subset, fit_time_per_model, feature_type, **kwargs):
+        xt, yt = feature.subsetn_random(train_set, train_subset)
+        ft, lt = feature.extract(xt, yt, feature_type)
+        print('creating model', self.name)
+        nb_classes = len(np.unique(lt))
+
+        x_train, y_train = self.prepare_data(ft, lt)
+        self.build_model(x_train, nb_classes=nb_classes)
+
+        for fit_t in range(fit_time_per_model):
+            if fit_t != 0:
+                x_train, y_train = self.prepare_data(ft, lt)
+
+            self.fit(x_train, y_train, **kwargs)
+
 
 class CNNClassifier(BaseClassifier):
 
@@ -53,9 +76,12 @@ class CNNClassifier(BaseClassifier):
         self.model = load_model(file_path)
 
     def prepare_data(self, ft, lt):
-        x_train = ft.reshape(ft.shape[0], ft.shape[1], ft.shape[2], 1).astype('float32')
-        nb_classes = len(np.unique(lt))
-        y_train = np_utils.to_categorical(lt, nb_classes)
+        x_train, y_train = None, None
+        if ft is not None:
+            x_train = ft.reshape(ft.shape[0], ft.shape[1], ft.shape[2], 1).astype('float32')
+        if lt is not None:
+            nb_classes = len(np.unique(lt))
+            y_train = np_utils.to_categorical(lt, nb_classes)
         return x_train, y_train
 
     def fit(self, x_train, y_train, **kwargs):
@@ -94,6 +120,14 @@ class CNNClassifier(BaseClassifier):
                            optimizer='adadelta',
                            metrics=['accuracy'])
 
+    def predict(self, x_test, **kwargs):
+        if 'batch_size' not in kwargs['batch_size']:
+            kwargs['batch_size'] = 32
+        return self.model.predict(x_test, batch_size=kwargs['batch_size'], verbose=1)
+
+    def evaluate(self, predictions, y_test):
+        pass
+
 
 class SVMClassifier(BaseClassifier):
 
@@ -112,12 +146,21 @@ class SVMClassifier(BaseClassifier):
         self.model = model
 
     def prepare_data(self, ft, lt):
-        x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
-        y_train = lt
+        x_train, y_train = None, None
+        if ft is not None:
+            x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
+        if lt is not None:
+            y_train = lt
         return x_train, y_train
 
     def fit(self, x_train, y_train, **kwargs):
         self.model.fit(x_train, y_train)
+
+    def predict(self, x_test, **kwargs):
+        return self.model.predict(x_test)
+
+    def evaluate(self, predictions, y_test):
+        pass
 
 
 class KNNClassifier(BaseClassifier):
@@ -137,13 +180,22 @@ class KNNClassifier(BaseClassifier):
         self.model = model
 
     def prepare_data(self, ft, lt):
-        x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
-        y_train = lt
+        x_train, y_train = None, None
+        if ft is not None:
+            x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
+        if lt is not None:
+            y_train = lt
+
         return x_train, y_train
 
     def fit(self, x_train, y_train, **kwargs):
         self.model.fit(x_train, y_train)
 
+    def predict(self, x_test, **kwargs):
+        return self.model.predict(x_test)
+
+    def evaluate(self, predictions, y_test):
+        pass
 
 mappings = {'svm': SVMClassifier(), 'cnn': CNNClassifier(), 'knn': KNNClassifier()}
 

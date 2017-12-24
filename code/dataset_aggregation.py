@@ -13,7 +13,7 @@ for dir_name, subdir_list, file_list in os.walk(root_dir):
     for f_name in file_list:
         cl = dir_name.split("\\")[-1]
         file_path = os.path.join(dir_name, f_name)
-        print(file_path,dir_name)
+        print(file_path, dir_name)
         if cl in labels:
             label = labels[cl]
         else:
