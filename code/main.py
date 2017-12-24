@@ -49,7 +49,7 @@ def save_all_models(models):
         i += 1
 
 
-def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspectogram',  use_model=True):
+def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspectogram',  use_model=True, **kwargs):
 
     classifiers = cls.get_model(classifiers)
 
@@ -58,7 +58,7 @@ def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspe
 
     print('data preprocessing is completed! Starts to train')
     # test_set = feature.data_set(x_test, y_test)
-    train(train_set, classifiers, train_subset, fit_time_per_model, feature_type)
+    train(train_set, classifiers, train_subset, fit_time_per_model, feature_type, **kwargs)
 
     if use_model:
         print('Training is completed, loading models')
@@ -69,5 +69,61 @@ def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspe
     # test(x_test, y_test, models)
     print('test is completed')
 
+
+def estimatep(pred):
+    labels, counts = pred
+
+    index = np.argmax(counts)
+    sum_ = np.sum(counts)
+    percent = (counts[index]/sum_)*100
+    label = labels[index]
+
+    print(counts, labels)
+    print(index)
+    print(counts[index])
+    print('label:', label)
+    print(percent)
+    print('===============')
+    return label, percent
+
+
+def test(x_test, y_test, cnn_models, process='accuracy-percent', **kwargs):
+
+    def default():
+        acc, total = 0, 0
+        def estimations(models):
+            votes = []
+            for pred in models:
+                label, percent = pred
+                if percent > kwargs['percent']:
+                    pass
+
+    model_estimations = [predict(x_test, model, "estimate-percent") for model in cnn_models]
+    print(model_estimations)
+    exit(0)
+    for estimations in model_estimations:
+        for estimate in estimations:
+            label, percemt = estimate
+
+
+def predict(x_test, models, process='all-predictions'):
+    def default(predicted_labels):
+        return np.unique(predicted_labels, return_counts=True)
+
+    all_func = {'all-predictions': default, 'estimate-percent': estimatep}
+    func = all_func[process]
+
+    preds = []
+    for path in x_test:
+        each_model = []
+        for model in models:
+            f = feature.extract([path])
+            x_test = f.reshape(f.shape[0], f.shape[1], f.shape[2], 1).astype('float32')
+
+            each_model.append(func(model.predict(x_test)))
+
+        preds.append(each_model)
+
+    return preds
 ml_classifiers = ['cnn', 'cnn']
-main(ml_classifiers, 2)
+main(ml_classifiers, 1, epoch=1, batch_size=256)

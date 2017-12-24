@@ -53,25 +53,15 @@ class CNNClassifier(BaseClassifier):
         self.model = load_model(file_path)
 
     def prepare_data(self, ft, lt):
-        x_train = ft.reshape(ft.shape[0], ft.shape[2], ft.shape[1], 1).astype('float32')
+        x_train = ft.reshape(ft.shape[0], ft.shape[1], ft.shape[2], 1).astype('float32')
         nb_classes = len(np.unique(lt))
         y_train = np_utils.to_categorical(lt, nb_classes)
         return x_train, y_train
 
     def fit(self, x_train, y_train, **kwargs):
-        if 'batch_size' not in kwargs:
-            batch_size = 16
-        else:
-            batch_size = kwargs['batch_size']
-
-        if 'epochs' not in kwargs:
-            epochs = 5
-        else:
-            epochs = kwargs['epochs']
-
         self.model.fit(x_train, y_train,
-                       batch_size=batch_size,
-                       epochs=epochs)
+                       batch_size=kwargs['batch_size'],
+                       epochs=kwargs['epoch'])
 
     def build_model(self, x_train=None, nb_classes=7, nb_layers=2):
 
@@ -81,7 +71,7 @@ class CNNClassifier(BaseClassifier):
         input_shape = (x_train.shape[1], x_train.shape[2], 1)
 
         self.model = Sequential()
-        self.model.add(Conv2D(filters, kernel_size, padding='valid', input_shape=input_shape))
+        self.model.add(Conv2D(filters, kernel_size, input_shape=input_shape))
 
         self.model.add(BatchNormalization())
         self.model.add(Activation('relu'))

@@ -155,7 +155,7 @@ def extract_test(_paths, feature_t):
     return np.array(features)
 
 
-def extract(_paths, _labels=None, feature_t='melspectogram',):
+def extract(_paths, _labels=None, feature_t='melspectogram'):
     if _labels is None:
         return extract_test(_paths, feature_t)
     else:
