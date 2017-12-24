@@ -1,14 +1,14 @@
 import numpy as np
 import os
 import sys
-import vamp
+
 root_dir = sys.argv[1]
 
 dataset = []
 label_counter = 0
 labels = dict()
 for dir_name, subdir_list, file_list in os.walk(root_dir):
-    if len(subdir_list)>0:
+    if len(subdir_list) > 0:
         continue
     for f_name in file_list:
         cl = dir_name.split("\\")[-1]
@@ -30,5 +30,5 @@ f.write(str(dataset[-1][0]) + "\t" + dataset[-1][1])
 if not os.path.exists("model"):
     os.mkdir('model')
 
-np.save("model/labels.npy", [labels])
+# np.save("model/labels.npy", [labels])
 f.close()
