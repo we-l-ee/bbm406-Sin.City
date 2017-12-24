@@ -1,14 +1,14 @@
 import numpy as np
 import os
 import sys
-import vamp
+
 root_dir = sys.argv[1]
 
 dataset = []
 label_counter = 0
 labels = dict()
 for dir_name, subdir_list, file_list in os.walk(root_dir):
-    if len(subdir_list)>0:
+    if len(subdir_list) > 0:
         continue
     for f_name in file_list:
         cl = dir_name.split("\\")[-1]

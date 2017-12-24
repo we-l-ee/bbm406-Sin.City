@@ -10,6 +10,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.models import Sequential, load_model
 from keras.utils import np_utils
 
+from sklearn import svm
 cnn_models_path = 'model/cnn_models/'
 
 """"
@@ -138,7 +139,7 @@ def main():
 #     main()
 
 
-def build_model(X, nb_classes, nb_layers=2):
+def build_model(X=None, nb_classes=7, nb_layers=2):
     filters = 32  # number of convolutional filters to use
     pool_size = (2, 2)  # size of pooling area for max pooling
     kernel_size = (3, 3)  # convolution kernel size
@@ -179,6 +180,7 @@ def load_cnn_models(cnn_models_path):
 
     return cnn_models
 
+
 def save_cnn_model(cnn_models_path, cnn_models):
     if not os.path.exists(cnn_models_path):
         os.mkdir(cnn_models_path)
@@ -188,8 +190,8 @@ def save_cnn_model(cnn_models_path, cnn_models):
         cnn.save(cnn_models_path+str(i)+'.h5')
     i += 0
 
-    
-def main(cnn_number=4, train_subset=2, fit_time_per_model=1,):
+
+def main(cnn_number=4, train_subset=2, fit_time_per_model=1):
 
     x_train, y_train, x_test, y_test = feature.read_instructions()
     train_set = feature.data_set(x_train, y_train)
@@ -198,7 +200,6 @@ def main(cnn_number=4, train_subset=2, fit_time_per_model=1,):
     # test_set = feature.data_set(x_test, y_test)
     train(train_set, cnn_number, train_subset, fit_time_per_model)
     print('Training is completed, loading models')
-
     cnn_models = load_cnn_models(cnn_models_path)
 
     print('loading models completed, test is starting ')
@@ -220,7 +221,6 @@ def train(train_set, cnn_number, train_subset, fit_time_per_model):
         nb_classes = len(np.unique(lt))
         y_train = np_utils.to_categorical(lt, nb_classes)
 
-
         model = build_model(x_train, nb_classes=nb_classes)
 
         for fit_t in range(fit_time_per_model):
@@ -237,6 +237,7 @@ def train(train_set, cnn_number, train_subset, fit_time_per_model):
 
         cnn_models.append(model)
     save_cnn_model(cnn_models_path, cnn_models)
+
 
 def estimatep(pred):
     labels, counts = pred
@@ -300,5 +301,5 @@ xt, yt = feature.subsetn_random(train_set, 1)
 ft, lt = feature.extract(xt, yt)
 x_train = ft.reshape(ft.shape[0], ft.shape[1], ft.shape[2], 1).astype('float32')
 '''''
-main(2)
+main(cnn_number=2, train_subset=2, fit_time_per_model=1)
 
