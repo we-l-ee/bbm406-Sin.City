@@ -7,7 +7,7 @@ import numpy as np
 from keras.layers import Dense, Dropout, Activation, Conv2D, MaxPooling2D, Flatten
 from keras.layers.advanced_activations import ELU, LeakyReLU
 from keras.layers.normalization import BatchNormalization
-from keras.models import Sequential
+from keras.models import Sequential, load_model
 from keras.utils import np_utils
 
 cnn_models_path = 'model/cnn_models/'
@@ -170,6 +170,25 @@ def build_model(X, nb_classes, nb_layers=2):
     return model
 
 
+def load_cnn_models(cnn_models_path):
+    cnn_models = []
+    for dir_name, subdir_list, file_list in os.walk(cnn_models_path):
+        for f_name in file_list:
+            file_path = os.path.join(dir_name, f_name)
+            cnn_models.append(load_model(file_path))
+
+    return cnn_models
+
+def save_cnn_model(cnn_models_path, cnn_models):
+    if not os.path.exists(cnn_models_path):
+        os.mkdir(cnn_models_path)
+
+    i = 0
+    for cnn in cnn_models:
+        cnn.save(cnn_models_path+str(i)+'.h5')
+    i += 0
+
+    
 def main(cnn_number=4, train_subset=2, fit_time_per_model=1,):
 
     x_train, y_train, x_test, y_test = feature.read_instructions()
@@ -180,8 +199,7 @@ def main(cnn_number=4, train_subset=2, fit_time_per_model=1,):
     train(train_set, cnn_number, train_subset, fit_time_per_model)
     print('Training is completed, loading models')
 
-
-    cnn_models = []
+    cnn_models = load_cnn_models(cnn_models_path)
 
     print('loading models completed, test is starting ')
     exit(0)
@@ -218,13 +236,7 @@ def train(train_set, cnn_number, train_subset, fit_time_per_model):
                       verbose=1)
 
         cnn_models.append(model)
-    if not os.path.exists(cnn_models_path):
-        os.mkdir(cnn_models_path)
-
-    i = 0
-    for cnn in cnn_models:
-        cnn.save(cnn_models_path+str(i)+'.h5')
-    i+=0
+    save_cnn_model(cnn_models_path, cnn_models)
 
 def estimatep(pred):
     labels, counts = pred
