@@ -22,7 +22,7 @@ for dir_name, subdir_list, file_list in os.walk(root_dir):
             label_counter += 1
         dataset.append([label, file_path])
 
-f = open("dataset.txt", 'w')
+f = open(sys.argv[2], 'w')
 for d in dataset[:-1]:
     f.write(str(d[0])+"\t"+d[1]+"\n")
 f.write(str(dataset[-1][0]) + "\t" + dataset[-1][1])
