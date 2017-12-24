@@ -73,8 +73,7 @@ class CNNClassifier(BaseClassifier):
 
         self.model.fit(x_train, y_train,
                        batch_size=batch_size,
-                       epochs=epochs,
-                       kwargs=kwargs)
+                       epochs=epochs)
 
     def build_model(self, x_train=None, nb_classes=7, nb_layers=2):
 

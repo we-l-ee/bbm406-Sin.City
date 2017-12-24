@@ -65,6 +65,16 @@ def subsetn_random(set, train_subsetn=10):
     return np.array(x), np.array(y, dtype=int)
 
 def extract_train(_paths, _labels):
+    def melspectogram():
+        for i in range(0, parts*part_len, part_len):
+
+            mfc = lb.feature.melspectrogram(y=y[i:i+part_len], sr=sr).T
+            log_S = lb.logamplitude(mfc, ref_power=np.max)
+            features.append(log_S)
+            labels.append(l)
+
+    FUNC = {'mfc': melspectogram}
+
     labels = []
     features = []
     row = -1
@@ -88,7 +98,7 @@ def extract_train(_paths, _labels):
 
             mfc = lb.feature.melspectrogram(y=y[i:i+part_len], sr=sr).T
             log_S = lb.logamplitude(mfc, ref_power=np.max)
-            features.append(mfc)
+            features.append(log_S)
             labels.append(l)
 
         # print(duration)
