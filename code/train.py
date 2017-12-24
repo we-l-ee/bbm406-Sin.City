@@ -189,7 +189,7 @@ def save_cnn_model(cnn_models_path, cnn_models):
     i += 0
 
     
-def main(cnn_number=4, train_subset=2, fit_time_per_model=1,):
+def main(cnn_number=4, train_subset=10, fit_time_per_model=1,):
 
     x_train, y_train, x_test, y_test = feature.read_instructions()
     train_set = feature.data_set(x_train, y_train)

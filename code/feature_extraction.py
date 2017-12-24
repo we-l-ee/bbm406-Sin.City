@@ -39,7 +39,7 @@ def split_set(set):
         d = i.split("\t")
         x.append(d[1])
         y.append(int(d[0]))
-    return np.array(x), np.array(y)
+    return np.array(x), np.array(y, dtype=int)
 
 
 def data_set(xx, yy):
@@ -59,11 +59,10 @@ def subsetn_random(set, train_subsetn=10):
         xx = np.array(set[l], dtype=object)
         np.random.shuffle(xx)
         xx = xx[:train_subsetn]
-        yy = np.empty(train_subsetn)
-        yy.fill(l)
+        yy = [l for i in range(train_subsetn)]
         x.extend(xx)
         y.extend(yy)
-    return np.array(x), np.array(y)
+    return np.array(x), np.array(y, dtype=int)
 
 def extract_train(_paths, _labels):
     labels = []

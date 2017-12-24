@@ -14,9 +14,9 @@ for dir_name, subdir_list, file_list in os.walk(root_dir):
         cl = dir_name.split("\\")[-1]
         file_path = os.path.join(dir_name, f_name)
         print(file_path,dir_name)
-        if cl in labels:
+        try:
             label = labels[cl]
-        else:
+        except KeyError:
             labels[cl] = label_counter
             label = labels[cl]
             label_counter += 1
