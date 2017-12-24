@@ -30,5 +30,5 @@ f.write(str(dataset[-1][0]) + "\t" + dataset[-1][1])
 if not os.path.exists("model"):
     os.mkdir('model')
 
-np.save("model/labels.npy", [labels])
+# np.save("model/labels.npy", [labels])
 f.close()
