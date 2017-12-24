@@ -2,63 +2,17 @@ import argparse
 import os
 
 import feature_extraction as feature
-import keras
-import librosa as lb
 
 import numpy as np
-import tflearn
-from keras.layers import Dense, Dropout, Activation, Convolution2D, MaxPooling2D, Flatten
-from keras.layers.advanced_activations import ELU
+from keras.layers import Dense, Dropout, Activation, Conv2D, MaxPooling2D, Flatten
+from keras.layers.advanced_activations import ELU, LeakyReLU
 from keras.layers.normalization import BatchNormalization
 from keras.models import Sequential
-from tflearn.layers.conv import conv_2d, max_pool_2d
-from tflearn.layers.core import input_data, dropout, fully_connected
-from tflearn.layers.estimator import regression
+from keras.utils import np_utils
 
-path = "D:/wd/bbm406/dataset_s"
-# @res_type=scipy sucks
-# y,sr = lb.core.load(path)
-
-
-def init_nn(in_dim, units, activations):
-    model = keras.models.Sequential()
-    model.add(Dense(units=units[0], activation=[0], input_dim=in_dim))
-    for u, a in zip(units[1:], activations[1:]):
-        model.add(Dense(units=u, activation=a))
-	model.compile(loss='categorical_crossentropy',
-		  optimizer='sgd',
-		  metrics=['accuracy'])
-    return model
-""""
-x, y = feature.read_instructions()
-train_set = feature.data_set(x, y)
-xx, yy = feature.subsetn_random(train_set)
-f, l = feature.extract(xx, yy)
-
-
-model = init_nn(1292, [30,2], ['relu','relu','softmax'])
-
-model.compile(loss='categorical_crossentropy',
-              optimizer='sgd',
-              metrics=['accuracy'])
-
-"""
+cnn_models_path = 'model/cnn_models/'
 
 """"
-def extract_feature(dataset='datasets', stride=128):
-    features, labels = [], []
-    for root, sub, flist in os.walk(dataset):
-        for f in flist:
-            path = os.path.join(root, f)
-            print(path)
-            y, sr = lb.core.load(path,offset=30, duration=30)
-            features.append(lb.feature.mfcc(y, sr, n_mfcc=10))
-            labels.append(f.split("_")[0], )
-
-
-
-
-    return features, labels
 def main():
 
     parser = argparse.ArgumentParser(description='.')
@@ -184,48 +138,21 @@ def main():
 #     main()
 
 
-def build_model_v2(nb_classes, X):
-
-    convnet = input_data(shape=[None, X.shape[2], X.shape[3], 1], name='input')
-
-    convnet = conv_2d(convnet, 64, 2, activation='elu', weights_init="Xavier")
-    convnet = max_pool_2d(convnet, 2)
-
-    convnet = conv_2d(convnet, 128, 2, activation='elu', weights_init="Xavier")
-    convnet = max_pool_2d(convnet, 2)
-
-    convnet = conv_2d(convnet, 256, 2, activation='elu', weights_init="Xavier")
-    convnet = max_pool_2d(convnet, 2)
-
-    convnet = conv_2d(convnet, 512, 2, activation='elu', weights_init="Xavier")
-    convnet = max_pool_2d(convnet, 2)
-
-    convnet = fully_connected(convnet, 1024, activation='elu')
-    convnet = dropout(convnet, 0.5)
-
-    convnet = fully_connected(convnet, nb_classes, activation='softmax')
-    convnet = regression(convnet, optimizer='rmsprop', loss='categorical_crossentropy')
-
-    model = tflearn.DNN(convnet)
-    # print("    Model created! ✅")
-    return model
-
-
-def build_model_v1(X, nb_classes, nb_layers=4):
-    nb_filters = 32  # number of convolutional filters to use
+def build_model(X, nb_classes, nb_layers=2):
+    filters = 32  # number of convolutional filters to use
     pool_size = (2, 2)  # size of pooling area for max pooling
     kernel_size = (3, 3)  # convolution kernel size
-    input_shape = (1, X.shape[2], X.shape[3])
+    input_shape = (X.shape[1], X.shape[2], 1)
 
     model = Sequential()
-    model.add(Convolution2D(nb_filters, kernel_size[0], kernel_size[1],
-                            border_mode='valid', input_shape=input_shape))
-    model.add(BatchNormalization(axis=1, mode=2))
+    model.add(Conv2D(filters, kernel_size, padding='valid', input_shape=input_shape))
+
+    model.add(BatchNormalization())
     model.add(Activation('relu'))
 
     for layer in range(nb_layers - 1):
-        model.add(Convolution2D(nb_filters, kernel_size[0], kernel_size[1]))
-        model.add(BatchNormalization(axis=1, mode=2))
+        model.add(Conv2D(filters, kernel_size))
+        model.add(BatchNormalization())
         model.add(ELU(alpha=1.0))
         model.add(MaxPooling2D(pool_size=pool_size))
         model.add(Dropout(0.25))
@@ -236,86 +163,68 @@ def build_model_v1(X, nb_classes, nb_layers=4):
     model.add(Dropout(0.5))
     model.add(Dense(nb_classes))
     model.add(Activation("softmax"))
-    return model
 
-
-def main2(subset_use_number=5):
-    x_train, y_train, x_val, y_val, x_test, y_test = feature.read_instructions()
-    train_set = feature.data_set(x_train, y_train)
-    val_set = feature.data_set(x_train, y_train)
-    test_set = feature.data_set(x_test, y_test)
-
-    train2(train_set, val_set, subset_use_number)
-
-    cnn_models = np.load('cnn_models.npy')
-    predict(test_set, cnn_models)
-
-
-def train2(train_set, val_set, subset_use_number):
-    xt, yt = feature.subsetn_random(train_set)
-    ft, lt = feature.extract(xt, yt)
-
-    xv, yv = feature.subsetn_random(val_set)
-    fv, lv = feature.extract(xv, yv)
-
-    model = build_model_v1(ft, nb_classes=len(lt))
     model.compile(loss='categorical_crossentropy',
                   optimizer='adadelta',
                   metrics=['accuracy'])
-    batch_size = 128
-    nb_epoch = 100
-    model.fit(ft, lt, batch_size=batch_size, nb_epoch=nb_epoch,
-              verbose=1, validation_data=(fv, lv))
-
-    score = model.evaluate(fv, lv, verbose=0)
-    print('Val score:', score[0])
-    print('Val accuracy:', score[1])
-
-    for _ in range(subset_use_number-1):
-        xt, yt = feature.subsetn_random(train_set)
-        ft, lt = feature.extract(xt, yt)
-
-        xv, yv = feature.subsetn_random(val_set)
-        fv, lv = feature.extract(xv, yv)
-
-        model.fit(ft, lt, batch_size=batch_size, nb_epoch=nb_epoch,
-                  verbose=1, validation_data=(fv, lv))
-
-        score = model.evaluate(fv, lv, verbose=0)
-        print('Val score:', score[0])
-        print('Val accuracy:', score[1])
-
-    model.save('model/cnn.keras')
+    return model
 
 
-
-def main(cnn_number):
+def main(cnn_number=4, train_subset=2, fit_time_per_model=1,):
 
     x_train, y_train, x_test, y_test = feature.read_instructions()
     train_set = feature.data_set(x_train, y_train)
+
+    print('data preprocessing is completed! Starts to train')
     # test_set = feature.data_set(x_test, y_test)
-
-    train(train_set, cnn_number)
-
-    cnn_models = np.load('models/cnn_models.npy')
-    predict(x_test, y_test,cnn_models)
+    train(train_set, cnn_number, train_subset, fit_time_per_model)
+    print('Training is completed, loading models')
 
 
-def train(train_set, cnn_number):
+    cnn_models = []
+
+    print('loading models completed, test is starting ')
+    exit(0)
+    test(x_test, y_test, cnn_models)
+    print('test is completed')
+
+
+def train(train_set, cnn_number, train_subset, fit_time_per_model):
     cnn_models = list()
-    for _ in range(cnn_number):
-        xt, yt = feature.subsetn_random(train_set)
-        ft, lt = feature.extract(xt, yt)
+    batch_size = 16
+    epochs = 5
 
-        model = build_model_v1(ft, nb_classes=len(lt))
-        model.compile(loss='categorical_crossentropy',
-                      optimizer='adadelta',
-                      metrics=['accuracy'])
+    for _ in range(cnn_number):
+        xt, yt = feature.subsetn_random(train_set, train_subset)
+        ft, lt = feature.extract(xt, yt)
+        print('creating model', _)
+        x_train = ft.reshape(ft.shape[0], ft.shape[1], ft.shape[2], 1).astype('float32')
+        nb_classes = len(np.unique(lt))
+        y_train = np_utils.to_categorical(lt, nb_classes)
+
+
+        model = build_model(x_train, nb_classes=nb_classes)
+
+        for fit_t in range(fit_time_per_model):
+            if fit_t != 0:
+                xt, yt = feature.subsetn_random(train_set, train_subset)
+                ft, lt = feature.extract(xt, yt)
+                x_train = ft.reshape(ft.shape[0], 1, ft.shape[1], ft.shape[2]).astype('float32')
+                y_train = np_utils.to_categorical(lt, len(np.unique(lt)))
+
+            model.fit(x_train, y_train,
+                      batch_size=batch_size,
+                      epochs=epochs,
+                      verbose=1)
 
         cnn_models.append(model)
+    if not os.path.exists(cnn_models_path):
+        os.mkdir(cnn_models_path)
 
-
-    np.save('cnn_models.npy', cnn_models)
+    i = 0
+    for cnn in cnn_models:
+        cnn.save(cnn_models_path+str(i)+'.h5')
+    i+=0
 
 def estimatep(pred):
     labels, counts = pred
@@ -325,25 +234,33 @@ def estimatep(pred):
     percent = (counts[index]/sum_)*100
     label = labels[index]
 
+    print(counts, labels)
+    print(index)
+    print(counts[index])
+    print('label:', label)
+    print(percent)
+    print('===============')
     return label, percent
 
 
 def test(x_test, y_test, cnn_models, process='accuracy-percent', **kwargs):
+
     def default():
         acc, total = 0, 0
         def estimations(models):
             votes = []
             for pred in models:
                 label, percent = pred
-                if percent > kwargs['percent']
+                if percent > kwargs['percent']:
                     pass
 
-    model_estimations = [predictions(x_test, model, "estimate-percent") for model in cnn_models]
+    model_estimations = [predict(x_test, model, "estimate-percent") for model in cnn_models]
+    print(model_estimations)
+    exit(0)
+    for estimations in model_estimations:
+        for estimate in estimations:
+            label, percemt = estimate
 
-    for pred in model_estimations:
-        label, percent = pred
-        if percent
-            pass
 
 def predict(x_test, models, process='all-predictions'):
     def default(predicted_labels):
@@ -357,7 +274,18 @@ def predict(x_test, models, process='all-predictions'):
         each_model = []
         for model in models:
             f = feature.extract([path])
-            each_model.append(func(model.predict(f)))
-        preds.append()
+            x_test = f.reshape(f.shape[0], f.shape[1], f.shape[2], 1).astype('float32')
+
+            each_model.append(func(model.predict(x_test)))
+
+        preds.append(each_model)
 
     return preds
+''''
+x_train, y_train, x_test, y_test = feature.read_instructions()
+train_set = feature.data_set(x_train, y_train)
+xt, yt = feature.subsetn_random(train_set, 1)
+ft, lt = feature.extract(xt, yt)
+x_train = ft.reshape(ft.shape[0], ft.shape[1], ft.shape[2], 1).astype('float32')
+'''''
+main(2)

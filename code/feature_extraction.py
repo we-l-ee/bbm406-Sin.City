@@ -2,11 +2,10 @@ import librosa as lb
 import numpy as np
 import sys
 import time
+import soundfile as sf
+import subprocess
 
-
-root_dir = sys.argv[1]
-features = []
-labels = list()
+# root_dir = sys.argv[1]
 part_in_seconds = 10
 # max_part = 5
 # encoded_labels = {'akdeniz': 0, 'doguanadolu': 1, 'ege': 2, 'guneydoguanadolu': 3, 'icanadolu': 4, 'karadeniz': 5,
@@ -20,7 +19,6 @@ test_percent = 25
 train_percent = 75
 
 def read_instructions(dataset="dataset.txt"):
-
 
     with open(dataset) as f:
         np.random.seed(int(time.time()))
@@ -56,7 +54,7 @@ def data_set(xx, yy):
 
 def subsetn_random(set, train_subsetn=10):
     x, y = [], []
-    np.random.seed(time.time())
+    np.random.seed(int(time.time()))
     for l in set:
         xx = np.array(set[l], dtype=object)
         np.random.shuffle(xx)
@@ -69,51 +67,90 @@ def subsetn_random(set, train_subsetn=10):
 
 def extract_train(_paths, _labels):
     labels = []
+    features = []
+    row = -1
     for p, l in zip(_paths, _labels):
         print(p)
 
         try:
-            y, sr = lb.load(p)
+            if p[-1] == '\n':
+                y, sr = lb.load(p[:-1], res_type='kaiser_fast')
+            else:
+                y, sr = lb.load(p, res_type='kaiser_fast')
             duration = lb.core.get_duration(y=y, sr=sr)
             parts = int(duration / part_in_seconds)
+
         except AssertionError:
             continue
         except RuntimeError:
             continue
 
+
         mfc = lb.feature.melspectrogram(y=y, sr=sr).T
         log_S = lb.logamplitude(mfc, ref_power=np.max)
 
-        size = len(log_S) / parts
 
-        for i in range(0, len(log_S), int(size)):
-            features.append(log_S[i:i + int(size)])
+        # print(duration)
+        # print(len(log_S))
+
+        size = int(len(log_S) / parts)
+        #print('size:',size,'spect len:',len(log_S))
+        for i in range(0, len(log_S) - size, size):
+            frame = log_S[i:i + size].copy()
+            if row == -1:
+                row = frame.shape[0]
+            else:
+                if row < frame.shape[0]:
+                    frame = frame[:row]
+                elif row > frame.shape[0]:
+                    temp = np.zeros((row-frame.shape[0], frame.shape[1]))
+                    frame = np.vstack((frame, temp))
+            features.append(frame)
             labels.append(l)
 
-    return features, labels
+    # print(np.shape(features))
+    # print(np.shape(features[0]))
+    return np.array(features), np.array(labels)
+
 
 def extract_test(_paths):
+    features = []
     for p in _paths:
         print(p)
 
         try:
-            y, sr = lb.load(p)
+            if p[-1] == '\n':
+                y, sr = lb.load(p[:-1], res_type='kaiser_fast')
+            else:
+                y, sr = lb.load(p, res_type='kaiser_fast')
             duration = lb.core.get_duration(y=y, sr=sr)
             parts = int(duration / part_in_seconds)
+
         except AssertionError:
-            continue
-        except RuntimeError:
             continue
 
         mfc = lb.feature.melspectrogram(y=y, sr=sr).T
         log_S = lb.logamplitude(mfc, ref_power=np.max)
 
-        size = len(log_S) / parts
 
-        for i in range(0, len(log_S), int(size)):
-            features.append(log_S[i:i + int(size)])
+        # print(duration)
+        # print(len(log_S))
 
-    return features
+        size = int(len(log_S) / parts)
+        #print('size:',size,'spect len:',len(log_S))
+        for i in range(0, len(log_S) - size, size):
+            frame = log_S[i:i + size].copy()
+            if row == -1:
+                row = frame.shape[0]
+            else:
+                if row < frame.shape[0]:
+                    frame = frame[:row]
+                elif row > frame.shape[0]:
+                    temp = np.zeros((row-frame.shape[0], frame.shape[1]))
+                    frame = np.vstack((frame, temp))
+            features.append(frame)
+    return np.array(features)
+
 
 def extract(_paths, _labels=None):
 
