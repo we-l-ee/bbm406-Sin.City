@@ -215,7 +215,7 @@ class KNNClassifier(BaseClassifier):
     def evaluate(self, predictions, y_test):
         pass
 
-mappings = {'svm': SVMClassifier(), 'cnn': CNNClassifier(), 'knn': KNNClassifier()}
+mappings = {'svm': SVMClassifier(), 'cnn': CNNClassifier(), 'knn': KNNClassifier(), 'nn': NNClassifier()}
 
 
 def get_model(str_list):
