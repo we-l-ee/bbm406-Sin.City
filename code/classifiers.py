@@ -5,6 +5,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.models import Sequential, load_model
 from keras.utils import np_utils
 from keras import backend as K
+from keras import optimizers
 
 from sklearn import svm
 from sklearn import neighbors
@@ -19,6 +20,7 @@ all_models_path = 'models'
 
 if not os.path.exists(all_models_path):
     os.mkdir(all_models_path)
+
 
 class BaseClassifier(ABC):
 
@@ -54,6 +56,7 @@ class BaseClassifier(ABC):
     def evaluate(self, predictions, y_test):
         pass
 
+
     def train(self, train_set, train_subset, fit_time_per_model, feature_type, **kwargs):
         xt, yt = feature.subsetn_random(train_set, train_subset)
         ft, lt = feature.extract(xt, yt, feature_type)
@@ -70,6 +73,90 @@ class BaseClassifier(ABC):
             self.fit(x_train, y_train, **kwargs)
         self.save()
         K.clear_session()
+
+    def estimatep(self, pred):
+        labels, counts = pred
+
+        index = np.argmax(counts)
+        sum_ = np.sum(counts)
+        percent = (counts[index] / sum_) * 100
+        label = labels[index]
+
+        print(counts, labels)
+        print(index)
+        print(counts[index])
+        print('label:', label)
+        print(percent)
+        print('===============')
+        return label, percent
+
+    def test(self, x_test):
+        ''''
+         process='all-predictions
+        def default(predicted_labels):
+            return np.unique(predicted_labels, return_counts=True)
+    
+        all_func = {'all-predictions': default, 'estimate-percent': estimatep}
+        func = all_func[process]
+        '''
+        preds = []
+        for path in x_test:
+            each_model = []
+            f = feature.extract([path])
+            x_test, null = self.prepare_data(f, None)
+            each_model.append(self.estimatep(self.predict(x_test)))
+
+            preds.append(each_model)
+
+        return preds
+
+
+class NNClassifier(BaseClassifier):
+
+    models_path = 'models/nn_models/'
+    model = None
+    name = 'nn'
+
+    if not os.path.exists(models_path):
+        os.mkdir(models_path)
+
+    def save(self):
+        self.model.save(self.models_path + str(self.__hash__()) + '.h5')
+
+    def load(self, file_path):
+        self.model = load_model(file_path)
+
+    def prepare_data(self, ft, lt):
+        x_train, y_train = None, None
+        if ft is not None:
+            x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
+        if lt is not None:
+            y_train = lt
+        return x_train, y_train
+
+    def fit(self, x_train, y_train, **kwargs):
+        self.model.fit(x_train, y_train,
+                       batch_size=kwargs['batch_size'],
+                       epochs=kwargs['epoch'], validation_split=0.1)
+
+    def build_model(self, x_train=None, nn_layers=None):
+
+        self.model = Sequential()
+        self.model.add(Dense(input_dim=x_train[1], activation='relu'))
+        for layer in nn_layers:
+            self.model.add(Dense(layer, activation='sigmoid'))
+
+        self.model.add(Dense(1, activation='sigmoid'))
+
+        self.model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(lr=0.0001), metrics=['accuracy'])
+
+    def predict(self, x_test, **kwargs):
+        if 'batch_size' not in kwargs['batch_size']:
+            kwargs['batch_size'] = 32
+        return self.model.predict(x_test, batch_size=kwargs['batch_size'], verbose=1)
+
+    def evaluate(self, predictions, y_test):
+        pass
 
 
 class CNNClassifier(BaseClassifier):
@@ -136,6 +223,7 @@ class CNNClassifier(BaseClassifier):
         if 'batch_size' not in kwargs['batch_size']:
             kwargs['batch_size'] = 32
         return self.model.predict(x_test, batch_size=kwargs['batch_size'], verbose=1)
+
 
     def evaluate(self, predictions, y_test):
         pass
