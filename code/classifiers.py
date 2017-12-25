@@ -190,7 +190,7 @@ class CNNClassifier(BaseClassifier):
                        batch_size=kwargs['batch_size'],
                        epochs=kwargs['epoch'], validation_split=0.1)
 
-    def build_model(self, *args, nb_layers=2):
+    def build_model(self, *args, **kwargs):
 
         filters = 32  # number of convolutional filters to use
         pool_size = (2, 2)  # size of pooling area for max pooling
@@ -203,7 +203,9 @@ class CNNClassifier(BaseClassifier):
         self.model.add(BatchNormalization())
         self.model.add(Activation('relu'))
 
-        for layer in range(nb_layers - 1):
+        if 'nb_layers' in kwargs:
+            kwargs['nb_layers'] = 2
+        for layer in range(kwargs['nb_layers'] - 1):
             self.model.add(Conv2D(filters, kernel_size))
             self.model.add(BatchNormalization())
             self.model.add(ELU(alpha=1.0))
