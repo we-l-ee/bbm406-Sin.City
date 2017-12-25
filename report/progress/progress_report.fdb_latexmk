@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex progress_report"] 1512677257 "progress_report.aux" "progress_report.bbl" "progress_report" 1512678889
+["bibtex progress_report"] 1514142553 "progress_report.aux" "progress_report.bbl" "progress_report" 1514142554
   "./ieee.bst" 1512547818 19623 f9cd22458ca68af2567100f1aed905e8 ""
   "egbib.bib" 1512677253 2230 61653270d71302bac6afc06464eabb2d ""
-  "progress_report.aux" 1512678886 3692 0bad329758ee70df434347dd23d4b48b ""
+  "progress_report.aux" 1514142554 3692 0bad329758ee70df434347dd23d4b48b ""
   (generated)
-  "progress_report.blg"
   "progress_report.bbl"
-["pdflatex"] 1512678886 "c:\Users\MuHaMMeT\Desktop\BBM406 PROJECT\report\progress\progress_report.tex" "c:\Users\MuHaMMeT\Desktop\BBM406 PROJECT\report\progress\progress_report.pdf" "c:\Users\MuHaMMeT\Desktop\BBM406 PROJECT\report\progress\progress_report" 1512678889
+  "progress_report.blg"
+["pdflatex"] 1514142554 "c:\Users\MuHaMMeT\Desktop\BBM406 PROJECT\report\progress\progress_report.tex" "c:\Users\MuHaMMeT\Desktop\BBM406 PROJECT\report\progress\progress_report.pdf" "c:\Users\MuHaMMeT\Desktop\BBM406 PROJECT\report\progress\progress_report" 1514142554
   "C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc" 1458473887 4993 1194fb36dfcb11d9ae9802f2b00b60a3 ""
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136765053 960 379cc0019370a9e0208a0a3f949f847a ""
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136765053 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -98,16 +98,16 @@
   "C:/Users/MuHaMMeT/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map" 1511008760 94092 d2d1b69ee4fd57c82e04865d1be25eca ""
   "C:/Users/MuHaMMeT/AppData/Roaming/MiKTeX/2.9/tex/context/base/supp-pdf.mkii" 1306918461 71592 fe353e1fbd982ffc647f3e98ff74da96 ""
   "C:/Users/MuHaMMeT/AppData/Roaming/MiKTeX/2.9/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:\Users\MuHaMMeT\Desktop\BBM406 PROJECT\report\progress\progress_report.aux" 1512678886 3692 0bad329758ee70df434347dd23d4b48b ""
-  "c:\Users\MuHaMMeT\Desktop\BBM406 PROJECT\report\progress\progress_report.tex" 1512678885 10134 f38ae9d792c38a093c8342dca983fa86 ""
+  "c:\Users\MuHaMMeT\Desktop\BBM406 PROJECT\report\progress\progress_report.aux" 1514142554 3692 0bad329758ee70df434347dd23d4b48b ""
+  "c:\Users\MuHaMMeT\Desktop\BBM406 PROJECT\report\progress\progress_report.tex" 1513252882 10246 bda94da19fe37d0b9ee1ea932fa8f2c4 ""
   "cvpr.sty" 1512547818 8185 dd8231e8a92c383d16b745afe2ab996b ""
   "cvpr_eso.sty" 1512547818 3878 6aa7c08ff2621006e0603349e40a30a8 ""
   "eso-pic.sty" 1512547818 9460 d2935ae95b5cd343fcf5887ff530288d ""
   "images/mfcc_calc.png" 1512675560 49093 7199f3986f28d611705962c921249779 ""
   "images/spec_centroid.png" 1512676733 92444 41d88b5f1ff48da4d0d46b8d656ec990 ""
-  "progress_report.aux" 1512678886 3692 0bad329758ee70df434347dd23d4b48b ""
-  "progress_report.bbl" 1512677258 1978 74484cda37b6f9e60419be73266791f0 "bibtex progress_report"
-  "progress_report.tex" 1512678885 10134 f38ae9d792c38a093c8342dca983fa86 ""
+  "progress_report.aux" 1514142554 3692 0bad329758ee70df434347dd23d4b48b ""
+  "progress_report.bbl" 1514142554 1978 74484cda37b6f9e60419be73266791f0 "bibtex progress_report"
+  "progress_report.tex" 1513252882 10246 bda94da19fe37d0b9ee1ea932fa8f2c4 ""
   (generated)
   "c:\Users\MuHaMMeT\Desktop\BBM406 PROJECT\report\progress\progress_report.log"
   "progress_report.pdf"

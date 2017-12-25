@@ -5,7 +5,7 @@
 * Quantization (signal processing), in mathematics and digital signal processing, is the process of mapping input values from a large set (often a continuous set) to output values in a (countable) smaller set. Rounding and truncation are typical examples of quantization processes[[wiki](https://en.wikipedia.org/wiki/Quantization_(signal_processing))]
 
 ## Paper
-* MFCC scaling (http://musicinformationretrieval.com/mfcc.html)
+
 * Fourier Transformation and it`s effect to our features.
 
 ## Video
@@ -37,7 +37,7 @@ https://www.researchgate.net/figure/266895811_fig5_Fig-5-The-main-steps-for-calc
 * http://www.ifs.tuwien.ac.at/~andi/publications/pdf/lid_ismir05.pdf
 * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4676707/ - automatic !
 * http://josh-jacobson.github.io/genre-classification/doc/paper.pdf 
-* https://www.researchgate.net/publication/319326354_Music_Feature_Maps_with_Convolutional_Neural_Networks_for_Music_Genre_Classification - Convulutional Neural Network
+* https://www.researchgate.net/publication/319326354_Music_Feature_Maps_with_Convolutional_Neural_Networks_for_Music_Genre_Classification - Convolutional Neural Network
 * http://www.terasoft.com.tw/conf/ismir2014/LBD%5CLBD17.pdf - CNN
 * http://cs231n.stanford.edu/reports/2017/pdfs/22.pdf - Deep Learning
 * http://www.inf.ufpr.br/lesoliveira/download/ASOC2017.pdf - CNN

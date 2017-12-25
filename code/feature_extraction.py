@@ -7,7 +7,7 @@ from sklearn import preprocessing
 # max_part = 5
 # encoded_labels = {'akdeniz': 0, 'doguanadolu': 1, 'ege': 2, 'guneydoguanadolu': 3, 'icanadolu': 4, 'karadeniz': 5,
 # 'trakya': 6}
-part_in_seconds = 10
+part_in_seconds = 30
 encoded_labels = dict()
 label_counter = 0
 train_subsetn = 10
@@ -74,7 +74,7 @@ def split_set(set):
         d = i.split("\t")
         x.append(d[1])
         y.append(int(d[0]))
-    return np.array(x), np.array(y)
+    return np.array(x), np.array(y, dtype=int)
 
 
 def data_set(xx, yy):
@@ -94,16 +94,17 @@ def subsetn_random(set, train_subsetn=10):
         xx = np.array(set[l], dtype=object)
         np.random.shuffle(xx)
         xx = xx[:train_subsetn]
-        yy = np.empty(train_subsetn)
-        yy.fill(l)
+        yy = [l for i in range(train_subsetn)]
         x.extend(xx)
         y.extend(yy)
-    return np.array(x), np.array(y)
+    return np.array(x), np.array(y, dtype=int)
 
 
 def extract_train(_paths, _labels, feature_t):
+
     labels = []
     features = []
+    row = -1
     for p, l in zip(_paths, _labels):
         print(p)
 
@@ -146,8 +147,7 @@ def extract_test(_paths, feature_t):
             part_len = sr*part_in_seconds
         except AssertionError:
             continue
-        except RuntimeError:
-            continue
+
 
         for i in range(0, parts*part_len, part_len):
             compute_func = compute_feature[feature_t]
@@ -155,6 +155,19 @@ def extract_test(_paths, feature_t):
             scaled_feature = scaler.fit_transform(feature)
             features.append(scaled_feature)
 
+        # size = int(len(log_S) / parts)
+        # #print('size:',size,'spect len:',len(log_S))
+        # for i in range(0, len(log_S) - size, size):
+        #     frame = log_S[i:i + size].copy()
+        #     if row == -1:
+        #         row = frame.shape[0]
+        #     else:
+        #         if row < frame.shape[0]:
+        #             frame = frame[:row]
+        #         elif row > frame.shape[0]:
+        #             temp = np.zeros((row-frame.shape[0], frame.shape[1]))
+        #             frame = np.vstack((frame, temp))
+        #     features.append(frame)
     return np.array(features)
 
 
