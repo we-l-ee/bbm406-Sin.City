@@ -133,7 +133,7 @@ def extract_train(_paths, _labels, feature_t):
 
 def extract_test(_paths, feature_t):
     features = []
-    for p, l in zip(_paths,):
+    for p in _paths:
         print(p)
 
         try:

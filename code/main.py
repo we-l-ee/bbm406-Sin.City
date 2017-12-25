@@ -1,10 +1,6 @@
 import feature_extraction as feature
 import classifiers as cls
 import os
-import numpy as np
-
-
-models_path = 'models'
 
 
 def train(train_set, classifiers=('cnn', 'cnn'), train_subset=2, fit_time_per_model=1, feature_type='melspectogram',
@@ -27,14 +23,6 @@ def load_models(path):
     return models
 
 
-def save_all_models(models):
-
-    i = 0
-    for classifier in models:
-        classifier.save(i)
-        i += 1
-
-
 def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspectogram', train_model=True,
          use_model=True, **kwargs):
 
@@ -50,8 +38,8 @@ def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspe
 
     if use_model:
         print('Training is completed, loading models')
-        models = load_models(models_path)
-        if len(models) == 0 :
+        models = load_models(cls.all_models_path)
+        if len(models) == 0:
             print('Any model to load!!')
             exit(0)
 
@@ -88,9 +76,9 @@ def test(x_test, y_test, models, process='accuracy-percent', **kwargs):
 
     return labels
 
-#ml_classifiers = ['cnn', 'cnn']
-#main(ml_classifiers, 1, epoch=1, batch_size=256, train_model=False)
+ml_classifiers = ['cnn', 'cnn']
+main(ml_classifiers, 1, epoch=1, batch_size=256, train_model=False)
 
-ml_classifiers = ['nn']
-nn_layers = [30, 10]
-main(ml_classifiers, 1, epoch=2, batch_size=256, train_model=False, nn_layers=nn_layers)
+# ml_classifiers = ['nn']
+# nn_layers = [30, 10]
+# main(ml_classifiers, 1, epoch=2, batch_size=256, train_model=False, nn_layers=nn_layers)

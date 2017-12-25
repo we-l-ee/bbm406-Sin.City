@@ -22,6 +22,13 @@ if not os.path.exists(all_models_path):
     os.mkdir(all_models_path)
 
 
+def save_all_models(models):
+    i = 0
+    for classifier in models:
+        classifier.save(i)
+        i += 1
+
+
 class BaseClassifier(ABC):
 
     models_path = None
@@ -56,7 +63,6 @@ class BaseClassifier(ABC):
     def evaluate(self, predictions, y_test):
         pass
 
-
     def train(self, train_set, train_subset, fit_time_per_model, feature_type, **kwargs):
         xt, yt = feature.subsetn_random(train_set, train_subset)
         ft, lt = feature.extract(xt, yt, feature_type)
@@ -75,6 +81,8 @@ class BaseClassifier(ABC):
         K.clear_session()
 
     def estimatep(self, pred):
+        print(pred)
+        exit(0)
         labels, counts = pred
 
         index = np.argmax(counts)
@@ -90,7 +98,7 @@ class BaseClassifier(ABC):
         print('===============')
         return label, percent
 
-    def test(self, x_test):
+    def test(self, test):
         ''''
          process='all-predictions
         def default(predicted_labels):
@@ -100,14 +108,11 @@ class BaseClassifier(ABC):
         func = all_func[process]
         '''
         preds = []
-        for path in x_test:
-            each_model = []
+        for path in test:
             f = feature.extract([path])
             x_test, null = self.prepare_data(f, None)
-            each_model.append(self.estimatep(self.predict(x_test)))
-
-            preds.append(each_model)
-
+            pred = self.estimatep(self.predict(x_test))
+            preds.append(pred)
         return preds
 
 
@@ -143,9 +148,11 @@ class NNClassifier(BaseClassifier):
 
         self.model = Sequential()
         self.model.add(Dense(input_dim=x_train[1], activation='relu'))
-        for layer in nn_layers:
-            self.model.add(Dense(layer, activation='sigmoid'))
-
+        for i in range(len(nn_layers)):
+            if i == 0:
+                self.model.add(Dense(nn_layers[i], input_dim=x_train[1], activation='relu'))
+            else:
+                self.model.add(Dense(nn_layers[i], activation='sigmoid'))
         self.model.add(Dense(1, activation='sigmoid'))
 
         self.model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(lr=0.0001), metrics=['accuracy'])
@@ -220,7 +227,7 @@ class CNNClassifier(BaseClassifier):
                            metrics=['accuracy'])
 
     def predict(self, x_test, **kwargs):
-        if 'batch_size' not in kwargs['batch_size']:
+        if 'batch_size' not in kwargs:
             kwargs['batch_size'] = 32
         return self.model.predict(x_test, batch_size=kwargs['batch_size'], verbose=1)
 
