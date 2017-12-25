@@ -2,7 +2,7 @@ import librosa as lb
 import numpy as np
 import time
 import subprocess
-
+from sklearn import preprocessing
 # root_dir = sys.argv[1]
 # max_part = 5
 # encoded_labels = {'akdeniz': 0, 'doguanadolu': 1, 'ege': 2, 'guneydoguanadolu': 3, 'icanadolu': 4, 'karadeniz': 5,
@@ -16,6 +16,7 @@ train_subsetn = 10
 test_percent = 25
 train_percent = 75
 
+scaler = preprocessing.StandardScaler()
 
 def compute_melspectogram(y, sr, i, part_len):
     mfc = lb.feature.melspectrogram(y=y[i:i + part_len], sr=sr).T
@@ -34,8 +35,8 @@ def compute_spectral_centroid(y, sr, i, part_len):
 
 
 def compute_spectral_rolloff(y, sr, i, part_len):
-    centroid = lb.feature.spectral_rolloff(y=y[i: + part_len], sr=sr, n_mfcc=40)
-    return centroid
+    roll_off = lb.feature.spectral_rolloff(y=y[i: + part_len], sr=sr)
+    return roll_off
 
 
 def zero_crossing_rate(y, sr, i, part_len):
@@ -124,7 +125,8 @@ def extract_train(_paths, _labels, feature_t):
 
             compute_func = compute_feature[feature_t]
             feature = compute_func(y, sr, i, part_len)
-            features.append(feature)
+            scaled_feature = scaler.fit_transform(feature)
+            features.append(scaled_feature)
             labels.append(l)
 
     return np.array(features), np.array(labels)
@@ -150,7 +152,8 @@ def extract_test(_paths, feature_t):
         for i in range(0, parts*part_len, part_len):
             compute_func = compute_feature[feature_t]
             feature = compute_func(y, sr, i, part_len)
-            features.append(feature)
+            scaled_feature = scaler.fit_transform(feature)
+            features.append(scaled_feature)
 
         # size = int(len(log_S) / parts)
         # #print('size:',size,'spect len:',len(log_S))
@@ -168,7 +171,7 @@ def extract_test(_paths, feature_t):
     return np.array(features)
 
 
-def extract(_paths, _labels=None, feature_t='melspectogram',):
+def extract(_paths, _labels=None, feature_t='melspectogram'):
     if _labels is None:
         return extract_test(_paths, feature_t)
     else:

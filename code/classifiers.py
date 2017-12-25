@@ -4,14 +4,21 @@ from keras.layers.advanced_activations import ELU, LeakyReLU
 from keras.layers.normalization import BatchNormalization
 from keras.models import Sequential, load_model
 from keras.utils import np_utils
+from keras import backend as K
 
 from sklearn import svm
 from sklearn import neighbors
 from sklearn.externals import joblib
 
-
+import feature_extraction as feature
 from abc import ABC, abstractmethod
 
+import os
+
+all_models_path = 'models'
+
+if not os.path.exists(all_models_path):
+    os.mkdir(all_models_path)
 
 class BaseClassifier(ABC):
 
@@ -36,8 +43,33 @@ class BaseClassifier(ABC):
         pass
 
     @abstractmethod
-    def save(self, path):
+    def save(self):
         pass
+
+    @abstractmethod
+    def predict(self, x_test, **kwargs):
+        pass
+
+    @abstractmethod
+    def evaluate(self, predictions, y_test):
+        pass
+
+    def train(self, train_set, train_subset, fit_time_per_model, feature_type, **kwargs):
+        xt, yt = feature.subsetn_random(train_set, train_subset)
+        ft, lt = feature.extract(xt, yt, feature_type)
+        print('creating model', self.name)
+        nb_classes = len(np.unique(lt))
+
+        x_train, y_train = self.prepare_data(ft, lt)
+        self.build_model(x_train, nb_classes=nb_classes)
+
+        for fit_t in range(fit_time_per_model):
+            if fit_t != 0:
+                x_train, y_train = self.prepare_data(ft, lt)
+
+            self.fit(x_train, y_train, **kwargs)
+        self.save()
+        K.clear_session()
 
 
 class CNNClassifier(BaseClassifier):
@@ -46,32 +78,28 @@ class CNNClassifier(BaseClassifier):
     model = None
     name = 'cnn'
 
-    def save(self, number):
-        self.model.save(self.models_path + str(number) + '.h5')
+    if not os.path.exists(models_path):
+        os.mkdir(models_path)
+    
+    def save(self):
+        self.model.save(self.models_path + str(self.__hash__()) + '.h5')
 
     def load(self, file_path):
         self.model = load_model(file_path)
 
     def prepare_data(self, ft, lt):
-        x_train = ft.reshape(ft.shape[0], ft.shape[2], ft.shape[1], 1).astype('float32')
-        nb_classes = len(np.unique(lt))
-        y_train = np_utils.to_categorical(lt, nb_classes)
+        x_train, y_train = None, None
+        if ft is not None:
+            x_train = ft.reshape(ft.shape[0], ft.shape[2], ft.shape[1], 1).astype('float32')
+        if lt is not None:
+            nb_classes = len(np.unique(lt))
+            y_train = np_utils.to_categorical(lt, nb_classes)
         return x_train, y_train
 
     def fit(self, x_train, y_train, **kwargs):
-        if 'batch_size' not in kwargs:
-            batch_size = 16
-        else:
-            batch_size = kwargs['batch_size']
-
-        if 'epochs' not in kwargs:
-            epochs = 5
-        else:
-            epochs = kwargs['epochs']
-
         self.model.fit(x_train, y_train,
-                       batch_size=batch_size,
-                       epochs=epochs)
+                       batch_size=kwargs['batch_size'],
+                       epochs=kwargs['epoch'], validation_split=0.1)
 
     def build_model(self, x_train=None, nb_classes=7, nb_layers=2):
 
@@ -81,7 +109,7 @@ class CNNClassifier(BaseClassifier):
         input_shape = (x_train.shape[1], x_train.shape[2], 1)
 
         self.model = Sequential()
-        self.model.add(Conv2D(filters, kernel_size, padding='valid', input_shape=input_shape))
+        self.model.add(Conv2D(filters, kernel_size, input_shape=input_shape))
 
         self.model.add(BatchNormalization())
         self.model.add(Activation('relu'))
@@ -104,6 +132,14 @@ class CNNClassifier(BaseClassifier):
                            optimizer='adadelta',
                            metrics=['accuracy'])
 
+    def predict(self, x_test, **kwargs):
+        if 'batch_size' not in kwargs['batch_size']:
+            kwargs['batch_size'] = 32
+        return self.model.predict(x_test, batch_size=kwargs['batch_size'], verbose=1)
+
+    def evaluate(self, predictions, y_test):
+        pass
+
 
 class SVMClassifier(BaseClassifier):
 
@@ -111,8 +147,11 @@ class SVMClassifier(BaseClassifier):
     model = None
     name = 'svm'
 
-    def save(self, number):
-        joblib.dump(self.model, self.models_path + str(number) + '.pkl')
+    if not os.path.exists(models_path):
+        os.mkdir(models_path)
+
+    def save(self):
+        joblib.dump(self.model, self.models_path + str(self.__hash__()) + '.pkl')
 
     def load(self, file_path):
         self.model = joblib.load(file_path)
@@ -122,12 +161,21 @@ class SVMClassifier(BaseClassifier):
         self.model = model
 
     def prepare_data(self, ft, lt):
-        x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
-        y_train = lt
+        x_train, y_train = None, None
+        if ft is not None:
+            x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
+        if lt is not None:
+            y_train = lt
         return x_train, y_train
 
     def fit(self, x_train, y_train, **kwargs):
         self.model.fit(x_train, y_train)
+
+    def predict(self, x_test, **kwargs):
+        return self.model.predict(x_test)
+
+    def evaluate(self, predictions, y_test):
+        pass
 
 
 class KNNClassifier(BaseClassifier):
@@ -136,7 +184,10 @@ class KNNClassifier(BaseClassifier):
     name = 'knn'
     model = None
 
-    def save(self, number):
+    if not os.path.exists(models_path):
+        os.mkdir(models_path)
+    
+    def save(self):
         pass
 
     def load(self, file_path):
@@ -147,13 +198,22 @@ class KNNClassifier(BaseClassifier):
         self.model = model
 
     def prepare_data(self, ft, lt):
-        x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
-        y_train = lt
+        x_train, y_train = None, None
+        if ft is not None:
+            x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
+        if lt is not None:
+            y_train = lt
+
         return x_train, y_train
 
     def fit(self, x_train, y_train, **kwargs):
         self.model.fit(x_train, y_train)
 
+    def predict(self, x_test, **kwargs):
+        return self.model.predict(x_test)
+
+    def evaluate(self, predictions, y_test):
+        pass
 
 mappings = {'svm': SVMClassifier(), 'cnn': CNNClassifier(), 'knn': KNNClassifier()}
 
