@@ -9,8 +9,6 @@ from sklearn import svm
 from sklearn import neighbors
 from sklearn.externals import joblib
 
-import os
-import feature_extraction as feature
 
 from abc import ABC, abstractmethod
 
@@ -55,7 +53,7 @@ class CNNClassifier(BaseClassifier):
         self.model = load_model(file_path)
 
     def prepare_data(self, ft, lt):
-        x_train = ft.reshape(ft.shape[0], ft.shape[1], ft.shape[2], 1).astype('float32')
+        x_train = ft.reshape(ft.shape[0], ft.shape[2], ft.shape[1], 1).astype('float32')
         nb_classes = len(np.unique(lt))
         y_train = np_utils.to_categorical(lt, nb_classes)
         return x_train, y_train
@@ -103,8 +101,8 @@ class CNNClassifier(BaseClassifier):
         self.model.add(Activation("softmax"))
 
         self.model.compile(loss='categorical_crossentropy',
-                      optimizer='adadelta',
-                      metrics=['accuracy'])
+                           optimizer='adadelta',
+                           metrics=['accuracy'])
 
 
 class SVMClassifier(BaseClassifier):
