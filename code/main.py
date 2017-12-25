@@ -3,6 +3,7 @@ import classifiers as cls
 import os
 import numpy as np
 
+
 models_path = 'models'
 
 
@@ -12,7 +13,7 @@ def train(train_set, classifiers=('cnn', 'cnn'), train_subset=2, fit_time_per_mo
     for classifier in classifiers:
         classifier.train(train_set, train_subset, fit_time_per_model, feature_type, **kwargs)
 
-    save_all_models(classifiers)
+    # save_all_models(classifiers)
 
 
 def load_models(path):
@@ -20,7 +21,7 @@ def load_models(path):
     for dir_name, subdir_list, file_list in os.walk(path):
         for f_name in file_list:
             file_path = os.path.join(dir_name, f_name)
-            model = cls.mappings[dir_name.split('_')[0]]    # create empty model
+            model = cls.mappings[dir_name.split('_')[0].split('\\')[1]]    # create empty model
             model.load(file_path)                           # load model
             models.append(model)
     return models
@@ -34,7 +35,8 @@ def save_all_models(models):
         i += 1
 
 
-def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspectogram',  use_model=True, **kwargs):
+def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspectogram', save_model=True,
+         use_model=True, **kwargs):
 
     classifiers = cls.get_model(classifiers)
 
@@ -43,7 +45,8 @@ def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspe
 
     print('data preprocessing is completed! Starts to train')
     # test_set = feature.data_set(x_test, y_test)
-    train(train_set, classifiers, train_subset, fit_time_per_model, feature_type, **kwargs)
+    if save_model:
+        train(train_set, classifiers, train_subset, fit_time_per_model, feature_type, **kwargs)
 
     if use_model:
         print('Training is completed, loading models')
@@ -119,4 +122,4 @@ def predict(x_test, models, process='all-predictions'):
 
     return preds
 ml_classifiers = ['cnn', 'cnn']
-main(ml_classifiers, 1, epoch=1, batch_size=256)
+main(ml_classifiers, 1, epoch=1, batch_size=256, save_model=True)

@@ -4,6 +4,7 @@ from keras.layers.advanced_activations import ELU, LeakyReLU
 from keras.layers.normalization import BatchNormalization
 from keras.models import Sequential, load_model
 from keras.utils import np_utils
+from keras import backend as K
 
 from sklearn import svm
 from sklearn import neighbors
@@ -12,6 +13,12 @@ from sklearn.externals import joblib
 import feature_extraction as feature
 from abc import ABC, abstractmethod
 
+import os
+
+all_models_path = 'models'
+
+if not os.path.exists(all_models_path):
+    os.mkdir(all_models_path)
 
 class BaseClassifier(ABC):
 
@@ -36,7 +43,7 @@ class BaseClassifier(ABC):
         pass
 
     @abstractmethod
-    def save(self, path):
+    def save(self):
         pass
 
     @abstractmethod
@@ -61,6 +68,8 @@ class BaseClassifier(ABC):
                 x_train, y_train = self.prepare_data(ft, lt)
 
             self.fit(x_train, y_train, **kwargs)
+        self.save()
+        K.clear_session()
 
 
 class CNNClassifier(BaseClassifier):
@@ -69,8 +78,11 @@ class CNNClassifier(BaseClassifier):
     model = None
     name = 'cnn'
 
-    def save(self, number):
-        self.model.save(self.models_path + str(number) + '.h5')
+    if not os.path.exists(models_path):
+        os.mkdir(models_path)
+    
+    def save(self):
+        self.model.save(self.models_path + str(self.__hash__()) + '.h5')
 
     def load(self, file_path):
         self.model = load_model(file_path)
@@ -78,7 +90,7 @@ class CNNClassifier(BaseClassifier):
     def prepare_data(self, ft, lt):
         x_train, y_train = None, None
         if ft is not None:
-            x_train = ft.reshape(ft.shape[0], ft.shape[1], ft.shape[2], 1).astype('float32')
+            x_train = ft.reshape(ft.shape[0], ft.shape[2], ft.shape[1], 1).astype('float32')
         if lt is not None:
             nb_classes = len(np.unique(lt))
             y_train = np_utils.to_categorical(lt, nb_classes)
@@ -87,7 +99,7 @@ class CNNClassifier(BaseClassifier):
     def fit(self, x_train, y_train, **kwargs):
         self.model.fit(x_train, y_train,
                        batch_size=kwargs['batch_size'],
-                       epochs=kwargs['epoch'])
+                       epochs=kwargs['epoch'], validation_split=0.1)
 
     def build_model(self, x_train=None, nb_classes=7, nb_layers=2):
 
@@ -135,8 +147,11 @@ class SVMClassifier(BaseClassifier):
     model = None
     name = 'svm'
 
-    def save(self, number):
-        joblib.dump(self.model, self.models_path + str(number) + '.pkl')
+    if not os.path.exists(models_path):
+        os.mkdir(models_path)
+
+    def save(self):
+        joblib.dump(self.model, self.models_path + str(self.__hash__()) + '.pkl')
 
     def load(self, file_path):
         self.model = joblib.load(file_path)
@@ -169,7 +184,10 @@ class KNNClassifier(BaseClassifier):
     name = 'knn'
     model = None
 
-    def save(self, number):
+    if not os.path.exists(models_path):
+        os.mkdir(models_path)
+    
+    def save(self):
         pass
 
     def load(self, file_path):
