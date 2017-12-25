@@ -44,9 +44,9 @@ def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspe
             exit(0)
 
     print('Loading models completed, test is starting ')
-    # exit(0)
-    labels = test(x_test[:2], y_test[:2], models)
+    labels = test(x_test, y_test, models)
     print('Test is completed')
+
     accuracy = cls.evaluate_accuracy(labels, y_test)
     print('Accuracy is', accuracy)
 
@@ -76,9 +76,9 @@ def test(x_test, y_test, models, **kwargs):
                     labels[i][0] = label
             else:
                 labels[i][1] += percent
-    labels = cls.np.array(labels)
 
-    return labels[:, 1]
+    labels = cls.np.array(labels).astype(cls.np.int8)
+    return labels[:, 0]
 
 ml_classifiers = ['cnn', 'cnn']
 main(ml_classifiers, 1, epoch=1, batch_size=256, train_model=False)
