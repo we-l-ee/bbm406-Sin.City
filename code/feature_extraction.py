@@ -26,22 +26,22 @@ def compute_melspectogram(y, sr, i, part_len):
 
 
 def compute_mfcc(y, sr, i, part_len):
-    mfcc = lb.feature.mfcc(y=y[i: + part_len], sr=sr, n_mfcc=40)
+    mfcc = lb.feature.mfcc(y=y[i:i + part_len], sr=sr, n_mfcc=part_in_seconds*4)
     return mfcc
 
 
 def compute_spectral_centroid(y, sr, i, part_len):
-    centroid = lb.feature.spectral_centroid(y=y[i: + part_len], sr=sr)
+    centroid = lb.feature.spectral_centroid(y=y[i:i + part_len], sr=sr)
     return centroid
 
 
 def compute_spectral_rolloff(y, sr, i, part_len):
-    roll_off = lb.feature.spectral_rolloff(y=y[i: + part_len], sr=sr)
+    roll_off = lb.feature.spectral_rolloff(y=y[i:i + part_len], sr=sr)
     return roll_off
 
 
 def zero_crossing_rate(y, sr, i, part_len):
-    centroid = lb.feature.zero_crossing_rate(y=y[i: + part_len])
+    centroid = lb.feature.zero_crossing_rate(y=y[i:i + part_len])
     return centroid
 
 

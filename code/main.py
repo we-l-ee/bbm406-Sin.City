@@ -76,9 +76,9 @@ def test(x_test, y_test, models, process='accuracy-percent', **kwargs):
 
     return labels
 
-#ml_classifiers = ['cnn', 'cnn']
-#main(ml_classifiers, 1, epoch=1, batch_size=256, train_model=False)
+ml_classifiers = ['cnn']
+main(ml_classifiers, 2, epoch=10, batch_size=256, train_model=True)
 
-ml_classifiers = ['nn']
-nn_layers = [30, 10]
-main(ml_classifiers, 1, epoch=2, batch_size=256, train_model=True, nn_layers=nn_layers)
+#ml_classifiers = ['nn']
+#nn_layers = [30, 10]
+#main(ml_classifiers, train_subset=100, epoch=100, batch_size=256, train_model=True, nn_layers=nn_layers, feature_type='mfcc')
