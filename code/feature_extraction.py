@@ -1,7 +1,8 @@
 import librosa as lb
 import numpy as np
 import time
-import subprocess
+import glob
+import os
 from sklearn import preprocessing
 # root_dir = sys.argv[1]
 # max_part = 5
@@ -26,7 +27,7 @@ def compute_melspectogram(y, sr, i, part_len):
 
 
 def compute_mfcc(y, sr, i, part_len):
-    mfcc = lb.feature.mfcc(y=y[i:i + part_len], sr=sr, n_mfcc=40)
+    mfcc = lb.feature.mfcc(y=y[i:i + part_len], sr=sr, n_mfcc=part_in_seconds*4)
     return mfcc
 
 
@@ -211,3 +212,137 @@ f, l = extract(xx, yy)
     return f, l
 """
 
+
+def windows(data, window_size):
+    start = 0
+    while start < len(data):
+        yield start, start + window_size
+        start += (window_size / 2)
+
+
+def extract_features(parent_dir, sub_dirs, file_ext="*.wav", bands=60, frames=41):
+    window_size = 512 * (frames - 1)
+    log_specgrams = []
+    labels = []
+    for l, sub_dir in enumerate(sub_dirs):
+        for fn in glob.glob(os.path.join(parent_dir, sub_dir, file_ext)):
+            sound_clip, s = lb.load(fn)
+            label = fn.split('fold')[1].split('-')[1]
+            for (start, end) in windows(sound_clip, window_size):
+                if len(sound_clip[start:end]) == int(window_size):
+                    signal = sound_clip[start:end]
+                    melspec = lb.feature.melspectrogram(signal, n_mels=bands)
+                    logspec = lb.logamplitude(melspec)
+                    logspec = logspec.T.flatten()[:, np.newaxis].T
+                    log_specgrams.append(logspec)
+                    labels.append(label)
+
+    log_specgrams = np.asarray(log_specgrams).reshape(len(log_specgrams), bands, frames, 1)
+    features = np.concatenate((log_specgrams, np.zeros(np.shape(log_specgrams))), axis=3)
+    for i in range(len(features)):
+        features[i, :, :, 1] = lb.feature.delta(features[i, :, :, 0])
+
+    return np.array(features), np.array(labels, dtype=np.int)
+
+
+def extract_feature_array(filename, bands=60, frames=41):
+    window_size = 512 * (frames - 1)
+    log_specgrams = []
+    sound_clip, s = lb.load(filename)
+    for (start, end) in windows(sound_clip, window_size):
+        start = int(start)
+        end = int(end)
+        if (len(sound_clip[start:end]) == window_size):
+            signal = sound_clip[start:end]
+            melspec = lb.feature.melspectrogram(signal, n_mels=bands)
+            logspec = lb.logamplitude(melspec)
+            logspec = logspec.T.flatten()[:, np.newaxis].T
+            log_specgrams.append(logspec)
+
+    log_specgrams = np.asarray(log_specgrams).reshape(len(log_specgrams), bands, frames, 1)
+    features = np.concatenate((log_specgrams, np.zeros(np.shape(log_specgrams))), axis=3)
+    for i in range(len(features)):
+        features[i, :, :, 1] = lb.feature.delta(features[i, :, :, 0])
+
+    return np.array(features)
+
+
+def save_folds(data_dir, parent_dir):
+    for k in range(1, 11):
+        fold_name = 'fold' + str(k)
+        print("\nSaving " + fold_name)
+        features, labels = extract_features(parent_dir, [fold_name])
+        labels = one_hot_encode(labels)
+
+        print("Features of", fold_name, " = ", features.shape)
+        print("Labels of", fold_name, " = ", labels.shape)
+
+        feature_file = os.path.join(data_dir, fold_name + '_x.npy')
+        labels_file = os.path.join(data_dir, fold_name + '_y.npy')
+        np.save(feature_file, features)
+        print("Saved " + feature_file)
+        np.save(labels_file, labels)
+        print("Saved " + labels_file)
+
+
+def assure_path_exists(path):
+    mydir = os.path.join(os.getcwd(), path)
+    if not os.path.exists(mydir):
+        os.makedirs(mydir)
+
+
+# this will aggregate all the training data
+def load_all_folds(data_dir, features, labels):
+    subsequent_fold = False
+    for k in range(1, 9):
+        fold_name = 'fold' + str(k)
+        print("\nAdding " + fold_name)
+        feature_file = os.path.join(data_dir, fold_name + '_x.npy')
+        labels_file = os.path.join(data_dir, fold_name + '_y.npy')
+        loaded_features = np.load(feature_file)
+        loaded_labels = np.load(labels_file)
+        print("New Features: ", loaded_features.shape)
+
+        if subsequent_fold:
+            train_x = np.concatenate((features, loaded_features))
+            train_y = np.concatenate((labels, loaded_labels))
+        else:
+            train_x = loaded_features
+            train_y = loaded_labels
+            subsequent_fold = True
+
+    # use the penultimate fold for validation
+    valid_fold_name = 'fold9'
+    feature_file = os.path.join(data_dir, valid_fold_name + '_x.npy')
+    labels_file = os.path.join(data_dir, valid_fold_name + '_y.npy')
+    valid_x = np.load(feature_file)
+    valid_y = np.load(labels_file)
+
+    # and use the last fold for testing
+    test_fold_name = 'fold10'
+    feature_file = os.path.join(data_dir, test_fold_name + '_x.npy')
+    labels_file = os.path.join(data_dir, test_fold_name + '_y.npy')
+    test_x = np.load(feature_file)
+    test_y = np.load(labels_file)
+
+
+# this is used to load the folds incrementally
+def load_folds(folds):
+    subsequent_fold = False
+    for k in range(len(folds)):
+        fold_name = 'fold' + str(folds[k])
+        feature_file = os.path.join(data_dir, fold_name + '_x.npy')
+        labels_file = os.path.join(data_dir, fold_name + '_y.npy')
+        loaded_features = np.load(feature_file)
+        loaded_labels = np.load(labels_file)
+        print(fold_name, "features: ", loaded_features.shape)
+
+        if subsequent_fold:
+            features = np.concatenate((features, loaded_features))
+            labels = np.concatenate((labels, loaded_labels))
+        else:
+            features = loaded_features
+            labels = loaded_labels
+            subsequent_fold = True
+
+    return features, labels

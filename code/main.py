@@ -80,9 +80,11 @@ def test(x_test, y_test, models, **kwargs):
     labels = cls.np.array(labels).astype(cls.np.int8)
     return labels[:, 0]
 
+# https://github.com/jaron/deep-listening
 ml_classifiers = ['cnn', 'cnn']
-main(ml_classifiers, 1, epoch=1, batch_size=256, train_model=False)
+main(ml_classifiers, 10, epoch=1, batch_size=256, train_model=True)
 
 # ml_classifiers = ['nn']
 # nn_layers = [30, 10]
 # main(ml_classifiers, 1, epoch=2, batch_size=256, train_model=True, nn_layers=nn_layers)
+
