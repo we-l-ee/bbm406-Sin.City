@@ -10,11 +10,13 @@ from keras import optimizers
 from sklearn import svm
 from sklearn import neighbors
 from sklearn.externals import joblib
+from sklearn import metrics
 
 import feature_extraction as feature
 from abc import ABC, abstractmethod
 
 import os
+
 
 all_models_path = 'models'
 
@@ -27,6 +29,13 @@ def save_all_models(models):
     for classifier in models:
         classifier.save(i)
         i += 1
+
+
+def evaluate_accuracy(predictions, y_test, f1_score=False):
+    if f1_score:
+        return metrics.f1_score(y_test, predictions, average='micro')
+
+    return metrics.accuracy_score(y_test, predictions)
 
 
 class BaseClassifier(ABC):
@@ -57,10 +66,6 @@ class BaseClassifier(ABC):
 
     @abstractmethod
     def predict(self, x_test, **kwargs):
-        pass
-
-    @abstractmethod
-    def evaluate(self, predictions, y_test):
         pass
 
     def train(self, train_set, train_subset, fit_time_per_model, feature_type, **kwargs):
@@ -155,9 +160,6 @@ class NNClassifier(BaseClassifier):
             kwargs['batch_size'] = 32
         return self.model.predict(x_test, batch_size=kwargs['batch_size'], verbose=1)
 
-    def evaluate(self, predictions, y_test):
-        pass
-
 
 class CNNClassifier(BaseClassifier):
 
@@ -225,9 +227,6 @@ class CNNClassifier(BaseClassifier):
         preds = self.model.predict(x_test, batch_size=kwargs['batch_size'], verbose=1)
         return [np.argmax(pred) for pred in preds]
 
-    def evaluate(self, predictions, y_test):
-        pass
-
 
 class SVMClassifier(BaseClassifier):
 
@@ -261,9 +260,6 @@ class SVMClassifier(BaseClassifier):
 
     def predict(self, x_test, **kwargs):
         return self.model.predict(x_test)
-
-    def evaluate(self, predictions, y_test):
-        pass
 
 
 class KNNClassifier(BaseClassifier):
@@ -300,8 +296,6 @@ class KNNClassifier(BaseClassifier):
     def predict(self, x_test, **kwargs):
         return self.model.predict(x_test)
 
-    def evaluate(self, predictions, y_test):
-        pass
 
 mappings = {'svm': SVMClassifier(), 'cnn': CNNClassifier(), 'knn': KNNClassifier(), 'nn': NNClassifier()}
 

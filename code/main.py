@@ -31,7 +31,7 @@ def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspe
     x_train, y_train, x_test, y_test = feature.read_instructions('dataset_2.txt')
     train_set = feature.data_set(x_train, y_train)
 
-    print('data preprocessing is completed! Starts to train')
+    print('Data pre-processing is completed! Starts to train')
     # test_set = feature.data_set(x_test, y_test)
     if train_model:
         train(train_set, classifiers, train_subset, fit_time_per_model, feature_type, **kwargs)
@@ -43,14 +43,18 @@ def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspe
             print('Any model to load!!')
             exit(0)
 
-    print('loading models completed, test is starting ')
+    print('Loading models completed, test is starting ')
     # exit(0)
-    test(x_test[:10], y_test[:10], models)
-    print('test is completed')
+    labels = test(x_test[:2], y_test[:2], models)
+    print('Test is completed')
+    accuracy = cls.evaluate_accuracy(labels, y_test)
+    print('Accuracy is', accuracy)
 
 
-def test(x_test, y_test, models, process='accuracy-percent', **kwargs):
+def test(x_test, y_test, models, **kwargs):
 
+    """"
+    process = 'accuracy-percent',
     def default():
         acc, total = 0, 0
         def estimations(models):
@@ -59,26 +63,26 @@ def test(x_test, y_test, models, process='accuracy-percent', **kwargs):
                 label, percent = pred
                 if percent > kwargs['percent']:
                     pass
-
+    """
     model_estimations = [model.test(x_test) for model in models]
-    print(model_estimations)
-    exit(0)
 
     labels = [[None, 0]] * len(y_test)
     for estimations in model_estimations:
         for i in range(len(estimations)):
             label, percent = estimations[i]
             if labels[i][0] != label:
-                if label[i][1] < percent:
-                    label[i][1] = percent
+                if labels[i][1] < percent:
+                    labels[i][1] = percent
+                    labels[i][0] = label
             else:
                 labels[i][1] += percent
+    labels = cls.np.array(labels)
 
-    return labels
+    return labels[:, 1]
 
-#ml_classifiers = ['cnn', 'cnn']
-#main(ml_classifiers, 1, epoch=1, batch_size=256, train_model=False)
+ml_classifiers = ['cnn', 'cnn']
+main(ml_classifiers, 1, epoch=1, batch_size=256, train_model=False)
 
-ml_classifiers = ['nn']
-nn_layers = [30, 10]
-main(ml_classifiers, 1, epoch=2, batch_size=256, train_model=True, nn_layers=nn_layers)
+# ml_classifiers = ['nn']
+# nn_layers = [30, 10]
+# main(ml_classifiers, 1, epoch=2, batch_size=256, train_model=True, nn_layers=nn_layers)
