@@ -82,7 +82,7 @@ def test(x_test, y_test, models, **kwargs):
 
 # https://github.com/jaron/deep-listening
 ml_classifiers = ['cnn', 'cnn']
-main(ml_classifiers, 10, epoch=1, batch_size=256, train_model=True)
+main(ml_classifiers, 2, epoch=1, batch_size=256, train_model=True)
 
 # ml_classifiers = ['nn']
 # nn_layers = [30, 10]

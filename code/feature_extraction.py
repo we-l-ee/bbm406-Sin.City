@@ -4,6 +4,7 @@ import time
 import glob
 import os
 from sklearn import preprocessing
+import tensorflow as tf
 # root_dir = sys.argv[1]
 # max_part = 5
 # encoded_labels = {'akdeniz': 0, 'doguanadolu': 1, 'ege': 2, 'guneydoguanadolu': 3, 'icanadolu': 4, 'karadeniz': 5,
@@ -18,6 +19,12 @@ test_percent = 25
 train_percent = 75
 
 scaler = preprocessing.StandardScaler()
+
+
+def data_load(audio_f, sr=22050, file_format="wav", num_channels=1):
+    audio_binary = tf.read_file(audio_f)
+    y = tf.contrib.ffmpeg.decode_audio(audio_binary, file_format, sr, num_channels)
+    return tf.squeeze(y, 1), sr
 
 
 def compute_melspectogram(y, sr, i, part_len):
@@ -112,8 +119,14 @@ def extract_train(_paths, _labels, feature_t):
 
         try:
             if p[-1] == '\n':
+                # format = p[:-1].split('.')[-1]
+                print(format, p[:-1])
+                # y, sr = data_load(p[:-1], 22050, format, 1)
                 y, sr = lb.load(p[:-1], res_type='kaiser_fast')
             else:
+                # format = p.split('.')[-1]
+                # print(format, p)
+                # y, sr = data_load(p, 22050, format, 1)
                 y, sr = lb.load(p, res_type='kaiser_fast')
             duration = y.shape[0] / sr
             parts = int(duration / part_in_seconds)
@@ -252,7 +265,7 @@ def extract_feature_array(filename, bands=60, frames=41):
     for (start, end) in windows(sound_clip, window_size):
         start = int(start)
         end = int(end)
-        if (len(sound_clip[start:end]) == window_size):
+        if sound_clip[start:end] == window_size:
             signal = sound_clip[start:end]
             melspec = lb.feature.melspectrogram(signal, n_mels=bands)
             logspec = lb.logamplitude(melspec)
@@ -272,7 +285,7 @@ def save_folds(data_dir, parent_dir):
         fold_name = 'fold' + str(k)
         print("\nSaving " + fold_name)
         features, labels = extract_features(parent_dir, [fold_name])
-        labels = one_hot_encode(labels)
+        labels = preprocessing.OneHotEncoder(labels)
 
         print("Features of", fold_name, " = ", features.shape)
         print("Labels of", fold_name, " = ", labels.shape)
@@ -327,7 +340,7 @@ def load_all_folds(data_dir, features, labels):
 
 
 # this is used to load the folds incrementally
-def load_folds(folds):
+def load_folds(folds, data_dir):
     subsequent_fold = False
     for k in range(len(folds)):
         fold_name = 'fold' + str(folds[k])

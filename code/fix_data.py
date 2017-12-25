@@ -57,5 +57,11 @@ with ar.audio_open( "F:\\d_0.ogg") as file:
     print(y.shape)
 '''
 
+class B(object):
+    pass
+
+a = B()
+
+b = B()
 
 
