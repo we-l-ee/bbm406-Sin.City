@@ -42,10 +42,10 @@ def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspe
         if len(models) == 0:
             print('Any model to load!!')
             exit(0)
-    print(len(models))
+
     print('loading models completed, test is starting ')
     # exit(0)
-    test(x_test, y_test, models)
+    test(x_test[:10], y_test[:10], models)
     print('test is completed')
 
 
@@ -76,9 +76,9 @@ def test(x_test, y_test, models, process='accuracy-percent', **kwargs):
 
     return labels
 
-ml_classifiers = ['cnn', 'cnn']
-main(ml_classifiers, 1, epoch=1, batch_size=256, train_model=False)
+#ml_classifiers = ['cnn', 'cnn']
+#main(ml_classifiers, 1, epoch=1, batch_size=256, train_model=False)
 
-# ml_classifiers = ['nn']
-# nn_layers = [30, 10]
-# main(ml_classifiers, 1, epoch=2, batch_size=256, train_model=False, nn_layers=nn_layers)
+ml_classifiers = ['nn']
+nn_layers = [30, 10]
+main(ml_classifiers, 1, epoch=2, batch_size=256, train_model=True, nn_layers=nn_layers)

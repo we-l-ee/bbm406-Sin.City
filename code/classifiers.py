@@ -67,10 +67,10 @@ class BaseClassifier(ABC):
         xt, yt = feature.subsetn_random(train_set, train_subset)
         ft, lt = feature.extract(xt, yt, feature_type)
         print('creating model', self.name)
-        nb_classes = len(np.unique(lt))
 
         x_train, y_train = self.prepare_data(ft, lt)
-        self.build_model(x_train, y_train)
+
+        self.build_model(x_train, y_train, **kwargs)
 
         for fit_t in range(fit_time_per_model):
             if fit_t != 0:
@@ -89,12 +89,6 @@ class BaseClassifier(ABC):
         percent = (counts[index] / sum_) * 100
         label = labels[index]
 
-        print(counts, labels)
-        print(index)
-        print(counts[index])
-        print('label:', label)
-        print(percent)
-        print('===============')
         return label, percent
 
     def test(self, test):
@@ -143,13 +137,13 @@ class NNClassifier(BaseClassifier):
                        batch_size=kwargs['batch_size'],
                        epochs=kwargs['epoch'], validation_split=0.1)
 
-    def build_model(self, x_train=None, **kwargs):
+    def build_model(self, *args, **kwargs):
         nn_layers = kwargs['nn_layers']
         self.model = Sequential()
-        self.model.add(Dense(input_dim=x_train[1], activation='relu'))
+
         for i in range(len(nn_layers)):
             if i == 0:
-                self.model.add(Dense(nn_layers[i], input_dim=x_train[1], activation='relu'))
+                self.model.add(Dense(nn_layers[i], input_dim=args[0].shape[1], activation='relu'))
             else:
                 self.model.add(Dense(nn_layers[i], activation='sigmoid'))
         self.model.add(Dense(1, activation='sigmoid'))
@@ -157,7 +151,7 @@ class NNClassifier(BaseClassifier):
         self.model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(lr=0.0001), metrics=['accuracy'])
 
     def predict(self, x_test, **kwargs):
-        if 'batch_size' not in kwargs['batch_size']:
+        if 'batch_size' not in kwargs:
             kwargs['batch_size'] = 32
         return self.model.predict(x_test, batch_size=kwargs['batch_size'], verbose=1)
 
@@ -194,12 +188,12 @@ class CNNClassifier(BaseClassifier):
                        batch_size=kwargs['batch_size'],
                        epochs=kwargs['epoch'], validation_split=0.1)
 
-    def build_model(self, x_train=None, y_train=None, nb_layers=2):
+    def build_model(self, *args, nb_layers=2):
 
         filters = 32  # number of convolutional filters to use
         pool_size = (2, 2)  # size of pooling area for max pooling
         kernel_size = (3, 3)  # convolution kernel size
-        input_shape = (x_train.shape[1], x_train.shape[2], 1)
+        input_shape = (args[0].shape[1], args[0].shape[2], 1)
 
         self.model = Sequential()
         self.model.add(Conv2D(filters, kernel_size, input_shape=input_shape))
@@ -218,7 +212,7 @@ class CNNClassifier(BaseClassifier):
         self.model.add(Dense(128))
         self.model.add(Activation('relu'))
         self.model.add(Dropout(0.5))
-        self.model.add(Dense(y_train.shape[1]))
+        self.model.add(Dense(args[1].shape[1]))
         self.model.add(Activation("softmax"))
 
         self.model.compile(loss='categorical_crossentropy',
@@ -250,7 +244,7 @@ class SVMClassifier(BaseClassifier):
     def load(self, file_path):
         self.model = joblib.load(file_path)
 
-    def build_model(self):
+    def build_model(self, *args, **kwargs):
         model = svm.LinearSVC()
         self.model = model
 
@@ -287,7 +281,7 @@ class KNNClassifier(BaseClassifier):
     def load(self, file_path):
         pass
 
-    def build_model(self):
+    def build_model(self, *args, **kwargs):
         model = neighbors.KNeighborsClassifier()
         self.model = model
 
