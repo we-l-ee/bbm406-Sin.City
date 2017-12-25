@@ -42,7 +42,7 @@ def main(classifiers, train_subset=2, fit_time_per_model=1, feature_type='melspe
         if len(models) == 0:
             print('Any model to load!!')
             exit(0)
-
+    print(len(models))
     print('loading models completed, test is starting ')
     # exit(0)
     test(x_test, y_test, models)

@@ -7,7 +7,7 @@ from sklearn import preprocessing
 # max_part = 5
 # encoded_labels = {'akdeniz': 0, 'doguanadolu': 1, 'ege': 2, 'guneydoguanadolu': 3, 'icanadolu': 4, 'karadeniz': 5,
 # 'trakya': 6}
-part_in_seconds = 30
+part_in_seconds = 10
 encoded_labels = dict()
 label_counter = 0
 train_subsetn = 10
@@ -17,6 +17,7 @@ test_percent = 25
 train_percent = 75
 
 scaler = preprocessing.StandardScaler()
+
 
 def compute_melspectogram(y, sr, i, part_len):
     mfc = lb.feature.melspectrogram(y=y[i:i + part_len], sr=sr).T
@@ -104,7 +105,7 @@ def extract_train(_paths, _labels, feature_t):
 
     labels = []
     features = []
-    row = -1
+
     for p, l in zip(_paths, _labels):
         print(p)
 
@@ -147,7 +148,6 @@ def extract_test(_paths, feature_t):
             part_len = sr*part_in_seconds
         except AssertionError:
             continue
-
 
         for i in range(0, parts*part_len, part_len):
             compute_func = compute_feature[feature_t]

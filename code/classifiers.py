@@ -36,7 +36,7 @@ class BaseClassifier(ABC):
     name = ''
 
     @abstractmethod
-    def build_model(self, **kwargs):
+    def build_model(self, *args, **kwargs):
         pass
 
     @abstractmethod
@@ -70,7 +70,7 @@ class BaseClassifier(ABC):
         nb_classes = len(np.unique(lt))
 
         x_train, y_train = self.prepare_data(ft, lt)
-        self.build_model(x_train, nb_classes=nb_classes)
+        self.build_model(x_train, y_train)
 
         for fit_t in range(fit_time_per_model):
             if fit_t != 0:
@@ -81,8 +81,7 @@ class BaseClassifier(ABC):
         K.clear_session()
 
     def estimatep(self, pred):
-        print(pred)
-        exit(0)
+
         labels, counts = pred
 
         index = np.argmax(counts)
@@ -111,7 +110,7 @@ class BaseClassifier(ABC):
         for path in test:
             f = feature.extract([path])
             x_test, null = self.prepare_data(f, None)
-            pred = self.estimatep(self.predict(x_test))
+            pred = self.estimatep(np.unique(self.predict(x_test), return_counts=True))
             preds.append(pred)
         return preds
 
@@ -134,7 +133,7 @@ class NNClassifier(BaseClassifier):
     def prepare_data(self, ft, lt):
         x_train, y_train = None, None
         if ft is not None:
-            x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
+            x_train = ft.reshape(ft.shape[0], ft.shape[1] * ft.shape[2]).astype('float32')
         if lt is not None:
             y_train = lt
         return x_train, y_train
@@ -144,8 +143,8 @@ class NNClassifier(BaseClassifier):
                        batch_size=kwargs['batch_size'],
                        epochs=kwargs['epoch'], validation_split=0.1)
 
-    def build_model(self, x_train=None, nn_layers=None):
-
+    def build_model(self, x_train=None, **kwargs):
+        nn_layers = kwargs['nn_layers']
         self.model = Sequential()
         self.model.add(Dense(input_dim=x_train[1], activation='relu'))
         for i in range(len(nn_layers)):
@@ -195,7 +194,7 @@ class CNNClassifier(BaseClassifier):
                        batch_size=kwargs['batch_size'],
                        epochs=kwargs['epoch'], validation_split=0.1)
 
-    def build_model(self, x_train=None, nb_classes=7, nb_layers=2):
+    def build_model(self, x_train=None, y_train=None, nb_layers=2):
 
         filters = 32  # number of convolutional filters to use
         pool_size = (2, 2)  # size of pooling area for max pooling
@@ -219,7 +218,7 @@ class CNNClassifier(BaseClassifier):
         self.model.add(Dense(128))
         self.model.add(Activation('relu'))
         self.model.add(Dropout(0.5))
-        self.model.add(Dense(nb_classes))
+        self.model.add(Dense(y_train.shape[1]))
         self.model.add(Activation("softmax"))
 
         self.model.compile(loss='categorical_crossentropy',
@@ -229,8 +228,8 @@ class CNNClassifier(BaseClassifier):
     def predict(self, x_test, **kwargs):
         if 'batch_size' not in kwargs:
             kwargs['batch_size'] = 32
-        return self.model.predict(x_test, batch_size=kwargs['batch_size'], verbose=1)
-
+        preds = self.model.predict(x_test, batch_size=kwargs['batch_size'], verbose=1)
+        return [np.argmax(pred) for pred in preds]
 
     def evaluate(self, predictions, y_test):
         pass
@@ -258,7 +257,7 @@ class SVMClassifier(BaseClassifier):
     def prepare_data(self, ft, lt):
         x_train, y_train = None, None
         if ft is not None:
-            x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
+            x_train = ft.reshape(ft.shape[0], ft.shape[1] * ft.shape[2]).astype('float32')
         if lt is not None:
             y_train = lt
         return x_train, y_train
@@ -295,7 +294,7 @@ class KNNClassifier(BaseClassifier):
     def prepare_data(self, ft, lt):
         x_train, y_train = None, None
         if ft is not None:
-            x_train = ft.reshape(ft.shape[0], ft.shape[1] + ft.shape[2]).astype('float32')
+            x_train = ft.reshape(ft.shape[0], ft.shape[1] * ft.shape[2]).astype('float32')
         if lt is not None:
             y_train = lt
 
