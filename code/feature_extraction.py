@@ -233,75 +233,50 @@ def windows(data, window_size):
         start += (window_size / 2)
 
 
-def extract_features(parent_dir, sub_dirs, file_ext="*.wav", bands=60, frames=41):
+def extract_features(paths, labels_ , bands=60, frames=41):
     window_size = 512 * (frames - 1)
     log_specgrams = []
-    labels = []
-    for l, sub_dir in enumerate(sub_dirs):
-        for fn in glob.glob(os.path.join(parent_dir, sub_dir, file_ext)):
-            sound_clip, s = lb.load(fn)
-            label = fn.split('fold')[1].split('-')[1]
-            for (start, end) in windows(sound_clip, window_size):
-                if len(sound_clip[start:end]) == int(window_size):
-                    signal = sound_clip[start:end]
-                    melspec = lb.feature.melspectrogram(signal, n_mels=bands)
-                    logspec = lb.logamplitude(melspec)
-                    logspec = logspec.T.flatten()[:, np.newaxis].T
-                    log_specgrams.append(logspec)
-                    labels.append(label)
 
-    log_specgrams = np.asarray(log_specgrams).reshape(len(log_specgrams), bands, frames, 1)
-    features = np.concatenate((log_specgrams, np.zeros(np.shape(log_specgrams))), axis=3)
-    for i in range(len(features)):
-        features[i, :, :, 1] = lb.feature.delta(features[i, :, :, 0])
+    labels = []
+    for label, path in zip(labels_, paths):
+        try:
+            if p[-1] == '\n':
+                y, sr = lb.load(path[:-1], res_type='kaiser_fast')
+            else:
+                y, sr = lb.load(path, res_type='kaiser_fast')
+        except AssertionError:
+            continue
+
+        for start, end in window_size(y, window_size):
+            if len(sound_clip[start:end]) == int(window_size):
+                signal = y[start:end]
+                melspec = lb.feature.melspectrogram(signal, n_mels=bands)
+                logspec = lb.logamplitude(melspec)
+                logspec = logspec.T.flatten()[:, np.newaxis].T
+                log_specgrams.append(logspec)
+                labels.append(label)
 
     return np.array(features), np.array(labels, dtype=np.int)
 
 
-def extract_feature_array(filename, bands=60, frames=41):
-    window_size = 512 * (frames - 1)
-    log_specgrams = []
-    sound_clip, s = lb.load(filename)
-    for (start, end) in windows(sound_clip, window_size):
-        start = int(start)
-        end = int(end)
-        if sound_clip[start:end] == window_size:
-            signal = sound_clip[start:end]
-            melspec = lb.feature.melspectrogram(signal, n_mels=bands)
-            logspec = lb.logamplitude(melspec)
-            logspec = logspec.T.flatten()[:, np.newaxis].T
-            log_specgrams.append(logspec)
+def save_data(fold_k, features, labels,data_dir='data/'):
 
-    log_specgrams = np.asarray(log_specgrams).reshape(len(log_specgrams), bands, frames, 1)
-    features = np.concatenate((log_specgrams, np.zeros(np.shape(log_specgrams))), axis=3)
-    for i in range(len(features)):
-        features[i, :, :, 1] = lb.feature.delta(features[i, :, :, 0])
+    if not os.path.exists(data_dir):
+        os.mkdir(data_dir)
 
-    return np.array(features)
+    fold_name = 'fold' + str(fold_k)
+    print("\\nSaving " + fold_name)
 
+    # print("Features of", fold_name, " = ", features.shape)
+    # print("Labels of", fold_name, " = ", labels.shape)
 
-def save_folds(data_dir, parent_dir):
-    for k in range(1, 11):
-        fold_name = 'fold' + str(k)
-        print("\nSaving " + fold_name)
-        features, labels = extract_features(parent_dir, [fold_name])
-        labels = preprocessing.OneHotEncoder(labels)
+    feature_file = os.path.join(data_dir, fold_name + '_x.npy')
+    labels_file = os.path.join(data_dir, fold_name + '_y.npy')
+    np.save(feature_file, features)
+    print("Saved " + feature_file)
+    np.save(labels_file, labels)
+    print("Saved " + labels_file)
 
-        print("Features of", fold_name, " = ", features.shape)
-        print("Labels of", fold_name, " = ", labels.shape)
-
-        feature_file = os.path.join(data_dir, fold_name + '_x.npy')
-        labels_file = os.path.join(data_dir, fold_name + '_y.npy')
-        np.save(feature_file, features)
-        print("Saved " + feature_file)
-        np.save(labels_file, labels)
-        print("Saved " + labels_file)
-
-
-def assure_path_exists(path):
-    mydir = os.path.join(os.getcwd(), path)
-    if not os.path.exists(mydir):
-        os.makedirs(mydir)
 
 
 # this will aggregate all the training data
@@ -340,7 +315,7 @@ def load_all_folds(data_dir, features, labels):
 
 
 # this is used to load the folds incrementally
-def load_folds(folds, data_dir):
+def load(folds, data_dir="data/"):
     subsequent_fold = False
     for k in range(len(folds)):
         fold_name = 'fold' + str(folds[k])
