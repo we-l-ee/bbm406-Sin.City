@@ -15,11 +15,15 @@ from sklearn import metrics
 import feature_extraction as feature
 from abc import ABC, abstractmethod
 
+import tensorflow as tf
 import os
 
 
-all_models_path = 'models'
+config = tf.ConfigProto(allow_soft_placement=True)
+config.gpu_options.allocator_type = 'BFC'
+config.gpu_options.per_process_gpu_memory_fraction = 0.90
 
+all_models_path = 'models'
 if not os.path.exists(all_models_path):
     os.mkdir(all_models_path)
 
@@ -134,7 +138,11 @@ class NNClassifier(BaseClassifier):
         if ft is not None:
             x_train = ft.reshape(ft.shape[0], ft.shape[1] * ft.shape[2]).astype('float32')
         if lt is not None:
-            y_train = lt
+            nb_classes = len(np.unique(lt))
+            print(nb_classes)
+            print(lt)
+            exit(0)
+            y_train = np_utils.to_categorical(lt, nb_classes)
         return x_train, y_train
 
     def fit(self, x_train, y_train, **kwargs):
@@ -151,7 +159,7 @@ class NNClassifier(BaseClassifier):
                 self.model.add(Dense(nn_layers[i], input_dim=args[0].shape[1], activation='relu'))
             else:
                 self.model.add(Dense(nn_layers[i], activation='sigmoid'))
-        self.model.add(Dense(1, activation='sigmoid'))
+        self.model.add(Dense(args[1].shape[1], activation='sigmoid'))
 
         self.model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(lr=0.0001), metrics=['accuracy'])
 
@@ -190,11 +198,11 @@ class CNNClassifier(BaseClassifier):
                        batch_size=kwargs['batch_size'],
                        epochs=kwargs['epoch'], validation_split=0.1)
 
-    def build_model(self, *args, nb_layers=2):
+    def build_model(self, *args, **kwargs):
 
-        filters = 32  # number of convolutional filters to use
-        pool_size = (2, 2)  # size of pooling area for max pooling
-        kernel_size = (3, 3)  # convolution kernel size
+        filters = 32
+        pool_size = (2, 2)
+        kernel_size = (3, 3)
         input_shape = (args[0].shape[1], args[0].shape[2], 1)
 
         self.model = Sequential()
@@ -203,7 +211,9 @@ class CNNClassifier(BaseClassifier):
         self.model.add(BatchNormalization())
         self.model.add(Activation('relu'))
 
-        for layer in range(nb_layers - 1):
+        if 'nb_layers' not in kwargs:
+            kwargs['nb_layers'] = 1
+        for layer in range(kwargs['nb_layers'] - 1):
             self.model.add(Conv2D(filters, kernel_size))
             self.model.add(BatchNormalization())
             self.model.add(ELU(alpha=1.0))
@@ -211,11 +221,11 @@ class CNNClassifier(BaseClassifier):
             self.model.add(Dropout(0.25))
 
         self.model.add(Flatten())
-        self.model.add(Dense(128))
-        self.model.add(Activation('relu'))
+        self.model.add(Dense(128, activation='relu'))
+        # self.model.add(Activation('relu'))
         self.model.add(Dropout(0.5))
-        self.model.add(Dense(args[1].shape[1]))
-        self.model.add(Activation("softmax"))
+        self.model.add(Dense(args[1].shape[1], activation='softmax'))
+        # self.model.add(Activation("softmax"))
 
         self.model.compile(loss='categorical_crossentropy',
                            optimizer='adadelta',
