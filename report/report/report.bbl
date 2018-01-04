@@ -1,29 +1,136 @@
-\begin{thebibliography}{1}\itemsep=-1pt
+\begin{thebibliography}{10}\itemsep=-1pt
 
-\bibitem{Alpher02}
-A.~Alpher.
-\newblock Frobnication.
-\newblock {\em Journal of Foo}, 12(1):234--778, 2002.
+\bibitem{data_set}
+Data set of turkish folk songs.
+\newblock \url{https://we-l-ee.github.io/bbm406-Sin.City/data-set}.
 
-\bibitem{Alpher03}
-A.~Alpher and J.~P.~N. Fotheringham-Smythe.
-\newblock Frobnication revisited.
-\newblock {\em Journal of Foo}, 13(1):234--778, 2003.
+\bibitem{jdownloader}
+Jdownloader.
+\newblock \url{http://jdownloader.org/}.
 
-\bibitem{Alpher04}
-A.~Alpher, J.~P.~N. Fotheringham-Smythe, and G.~Gamow.
-\newblock Can a machine frobnicate?
-\newblock {\em Journal of Foo}, 14(1):234--778, 2004.
+\bibitem{librosa}
+Librosa library.
+\newblock \url{https://librosa.github.io/}.
 
-\bibitem{Authors14}
-Authors.
-\newblock The frobnicatable foo filter, 2014.
-\newblock Face and Gesture submission ID 324. Supplied as additional material
-  {\tt fg324.pdf}.
+\bibitem{magnatune}
+Magnatune, “magnatune: Mp3 music and music licensing (royalty free music and
+  license music).
+\newblock \url{http://www.magnatune.com}.
 
-\bibitem{Authors14b}
-Authors.
-\newblock Frobnication tutorial, 2014.
-\newblock Supplied as additional material {\tt tr.pdf}.
+\bibitem{cnn_recommendation}
+S.~D. Aaron van~den Oord.
+\newblock Deep contentbased music recommendation.
+\newblock 2013.
+
+\bibitem{content_descriptor}
+T.~Andersson.
+\newblock Audio classification and content description.
+\newblock 2004.
+
+\bibitem{to_basili}
+R.~Basili, A.~Serafini, and A.~Stellato.
+\newblock A. classification of musical genre: a machine learning approach
+  proceedings of ismir.
+\newblock {\em ISMIR}, 2004.
+
+\bibitem{pattern_letters}
+N.~D. D.~Li, I. K.~Sethi and T.~McGee.
+\newblock Classification of general audio data for content-based retrieval.
+\newblock {\em Pattern Recognition Letters}, pages 533--544, 2001.
+
+\bibitem{to_jaudio}
+I.~F. D.~McEnnis, C.~McKay and P.~Depalle.
+\newblock jaudio: A feature extraction library.
+\newblock {\em in Proc. of the 6th Int. Conf. on Music Information Retrieval},
+  pages 600--603, 2005.
+
+\bibitem{to_ponce}
+P.~de~Le´on and I.~Inesta, J.M.
+\newblock Musical style identification using self-organising maps web
+  delivering of music.
+\newblock {\em in Proc. of the 7th Int. Conf. on Music Information Retrieval},
+  pages 340--341, 2006.
+
+\bibitem{chroma}
+D.~P.~W. Ellis.
+\newblock Classifying music audio with timbral and chroma features.
+
+\bibitem{genre_classification_tp}
+P.~C. G.~Tzanetakis.
+\newblock Musical genre classification of audio signals.
+\newblock 10(5):294--295, 2002.
+
+\bibitem{to_bergstra}
+D.~E. D.~E. J.~Bergstra, N.~Casagrande and B.~K´egl.
+\newblock Aggregate features and adaboost for music classification.
+\newblock {\em Machine Learning}, 65(2):473--484, 2006.
+
+\bibitem{crnn_for_ml}
+G.~F. Keunwoo~Choi.
+\newblock Convolutional recurrent neural networks for music classification.
+\newblock 2016.
+
+\bibitem{mfcc_calc}
+P.~. A.-A. A. . A. S. . A.~M. Khdour, Thair &~Muaidi.
+\newblock Arabic audio news retrieval system using dependent speaker mode, mel
+  frequency cepstral coefficient and dynamic time warping techniques.
+\newblock {\em Research Journal of Applied Sciences, Engineering and
+  Technology}, (7):5082--5097, 2014.
+
+\bibitem{spec_centroid}
+T.~. N.-H. . E. A. . E.~J. Kua, J.M.K. &~Thiruvaran.
+\newblock Investigation of spectral centroid magnitude and frequency for
+  speaker recognition/.
+\newblock 2010.
+
+\bibitem{to_mckay}
+C.~McKay and I.~Fujinaga.
+\newblock A. classification of musical genre: a machine learning approach
+  proceedings of ismir.
+\newblock {\em ISMIR}, 2004.
+
+\bibitem{mffc}
+G.~S. Md.Sahidullah.
+\newblock Design, analysis and experimental evaluation of block based
+  transformation in mfcc computation for speaker recognition.
+\newblock {\em Speech Communication}, 54(4):543--565, 2012.
+
+\bibitem{genre_classification}
+K.~K. Michael~Haggblade, Yang~Hong.
+\newblock Music genre classification.
+
+\bibitem{genre_cnn}
+Y.~L. Qiuqiang~Kong, Xiaohui~Feng.
+\newblock Music genre classification using convolutional neural network.
+
+\bibitem{to_fiebrink}
+I.~F. R.~Fiebrink.
+\newblock Feature selection pitfalls and music classification.
+\newblock {\em ISMIR}, 2004.
+
+\bibitem{speech_music}
+E.~Scheirer and M.~Slaney.
+\newblock Construction and evaluation of a robust multi-feature speech/music
+  discriminator.
+\newblock {\em ICASSP, IEEE International Conference on Acoustics, Speech and
+  Signal processing-Proceedings}, pages 1331--1334, 1997.
+
+\bibitem{spectral_centroid}
+E.~Schubert, J.~Wolfe, and A.~Tarnopolsky.
+\newblock Spectral centroid and timbre in complex, multiple instrumental
+  textures.
+\newblock 08 2004.
+
+\bibitem{feature_extraction_automatic_cnn}
+A.~B. C. A. H.~C. Tom LH.~Li.
+\newblock Automatic musical pattern feature extraction using convolutional
+  neural network.
+
+\bibitem{to_yaslan}
+Y.~Yaslan and Z.~Cataltepe.
+\newblock Audio music genre classification using different classifiers and
+  feature selection methods.
+\newblock {\em in Proc. of the Int. Conference on Pattern Recognition}, pages
+  573--576, 2006.
 
 \end{thebibliography}

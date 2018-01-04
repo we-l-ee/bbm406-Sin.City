@@ -21,11 +21,9 @@ def test(models, test_type, **kwargs):
             label, percent = all_preds[i][j]
             try:
                 tot_per[label] += percent
-            except KeyError:
-                tot_per[label] = percent
-            try:
                 num_est[label] += 1
             except KeyError:
+                tot_per[label] = percent
                 num_est[label] = 1
         for label in tot_per.keys():
             p = tot_per[label]/num_est[label]
@@ -48,11 +46,11 @@ def preprocessing(train_batch, test_batch, train_subsetn):
     feature.extract_features(x_test, y_test, batch=test_batch, extract_type='test')
 
 
-def main(classifiers,train_batch, test_batch, train_type='batch', preprocess_data=True, train_model=True, test_data=True,
+def main(classifiers, train_batch, test_batch, train_type='batch', preprocess_data=True, train_model=True, test_data=True,
          train_subsetn=50, test_type='batch', **kwargs):
 
     if preprocess_data:
-        print()
+        print("INFO: Starting pre-processing!")
         preprocessing(train_batch, test_batch, train_subsetn)
     classifiers = cls.get_model(classifiers)
 
@@ -71,7 +69,7 @@ def main(classifiers,train_batch, test_batch, train_type='batch', preprocess_dat
         print('Accuracy:,', cls.evaluate_accuracy(labels[:,0], y_test))
         print('INFO: Testing is completed!')
 
-        return labels, y_test
+        return labels, y_test, models
 """
 from version .1
 def test(x_test, y_test, models, **kwargs):
@@ -127,10 +125,12 @@ def train(train_set, classifiers=('cnn', 'cnn'), train_subset=2, fit_time_per_mo
 """
 
 
-# https://github.com/jaron/deep-listening
-ml_classifiers = ['svm']
-rt = main(ml_classifiers, train_batch='all', test_batch='all', preprocess_data=False,  train_model=False, train_type='batch', test_type='batch',
-     train_subsetn=50, test_data=True)
+ml_classifiers = ['cnn']
+rt = main(ml_classifiers, train_batch='all', test_batch='all', preprocess_data=False,  train_model=False, train_type='all', test_type='all',
+     train_subsetn='all', test_data=True, epochs=100)
+
+models = cls.load_models(cls.all_models_path)
+model = models[0]
 
 # ml_classifiers = ['nn']
 # nn_layers = [30, 10]

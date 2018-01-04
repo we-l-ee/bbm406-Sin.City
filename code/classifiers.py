@@ -101,6 +101,9 @@ class BaseClassifier(ABC):
         K.clear_session()
     '''
 
+    def show(self):
+        self.model.show()
+
     def train_normal(self, **kwargs):
         print('INFO: Loading data!')
         x_train, y_train = feature.load_data('train')
@@ -109,7 +112,7 @@ class BaseClassifier(ABC):
         print('INFO: Creating model!')
         self.build_model(x_train, y_train, **kwargs)
         print('INFO: Fitting model!')
-        self.fit(x_train, y_train, **kwargs)
+        self.fit(x_train, y_train,**kwargs)
         print('INFO: Saving model!')
         self.save()
         K.clear_session()
@@ -190,13 +193,15 @@ class BaseClassifier(ABC):
         x_test, y_test = feature.load_data('test')
         print('INFO: Preparing data for testing!')
         x_test, y_test = self.prepare_data(x_test, y_test)
+        y_test = np.array([np.argmax(l) for l in y_test])
         print('INFO: Testing model!')
         preds = self.predict(x_test, **kwargs)
         parts_in_song = feature.parts
-        preds = np.asarray(np.array_split(preds, parts_in_song))
-        labels = np.asarray(np.array_split(y_test, parts_in_song))
+        songs_preds = preds.reshape(-1, parts_in_song)
+        songs_labels = y_test.reshape(-1, parts_in_song)
+        preds = np.array([self.estimatep(song_pred) for song_pred in songs_preds])
 
-        return preds, labels
+        return preds, songs_labels[:, 0]
 
     def test(self, test_type, **kwargs):
 
@@ -350,31 +355,22 @@ class CNNClassifier(BaseClassifier):
 
         # first layer has 48 convolution filters
         self.model = Sequential()
-        self.model.add(Conv2D(filters, kernel_size,  kernel_initializer='normal', padding='same',
+        self.model.add(Conv2D(96, kernel_size=(5, 5), strides=(1, 1),
+                         activation='relu',
                          input_shape=input_shape))
-        self.model.add(Conv2D(filters, kernel_size,  kernel_initializer='normal', padding='same'))
-        self.model.add(Activation('relu'))
+        self.model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        self.model.add(Conv2D(96, (5, 5), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        self.model.add(Dropout(0.5))
-
-        # next layer has 96 convolution filters
-        self.model.add(Conv2D(96, kernel_size,  kernel_initializer='normal', padding='same'))
-        self.model.add(Conv2D(96, kernel_size,  kernel_initializer='normal', padding='same'))
-        self.model.add(Activation('relu'))
+        self.model.add(Conv2D(96, (5, 5), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        self.model.add(Dropout(0.5))
 
-        # flatten output into a single dimension
+
         self.model.add(Flatten())
-
-        # fully connected NN layer
-        self.model.add(Dense(256))
-        self.model.add(Activation('relu'))
-        self.model.add(Dropout(0.5))
-
+        self.model.add(Dense(90, activation='relu'))
+        self.model.add(Dense(90, activation='relu'))
         # output layer
-        self.model.add(Dense(args[1].shape[1]))
-        self.model.add(Activation('softmax'))
+        self.model.add(Dense(args[1].shape[1], activation='softmax'))
+
 
         adam = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0)
         self.model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer=adam)
